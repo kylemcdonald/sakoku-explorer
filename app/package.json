@@ -1,0 +1,29 @@
+{
+  "name": "Sakoku",
+  "version": "1.0.0",
+  "description": "View your data",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build-mac": "electron-packager . --out=dist --overwrite --platform=darwin",
+    "build-win": "electron-packager . --out=dist --overwrite --platform=win32"
+  },
+  "repository": "",
+  "author": "Kyle McDonald",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^9.1.2"
+  },
+  "dependencies": {
+    "domhandler": "^3.0.0",
+    "electron-packager": "^15.0.0",
+    "electron-reload": "^1.5.0",
+    "fullcalendar": "^5.2.0",
+    "htmlparser2": "^4.1.0",
+    "iconv-lite": "^0.6.2",
+    "jsdom": "^16.4.0",
+    "node-html-parser": "^1.2.20",
+    "node-machine-id": "^1.1.12",
+    "string-hash": "^1.1.3"
+  }
+}
