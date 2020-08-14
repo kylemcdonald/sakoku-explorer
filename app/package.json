@@ -24,6 +24,8 @@
     "jsdom": "^16.4.0",
     "node-html-parser": "^1.2.20",
     "node-machine-id": "^1.1.12",
-    "string-hash": "^1.1.3"
+    "open": "^7.1.0",
+    "string-hash": "^1.1.3",
+    "wait-for-user-input": "^1.0.0"
   }
 }

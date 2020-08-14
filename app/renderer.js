@@ -149,7 +149,9 @@ function htmlDecode(input) {
 //   var doc = parser.parseFromString(input, "text/html");
 //   return doc.documentElement.textContent;
     // fast but incomplete
-    input = input.replace(/&quot;/g, '"');
+    input = input
+        .replace(/&quot;/g, '"')
+        .replace(/&amp;/g, "&")
     return input;
 }
 
@@ -166,10 +168,10 @@ function getAllGoogleSearchEN(dir) {
 }
 
 function getAllGoogleVisitedEN(dir) {
-    console.log('Loading English search activity');
+    console.log('Loading English visited activity');
     const fn = path.join(dir, 'My Activity', 'Search', 'MyActivity.html');
     if (!fs.existsSync(fn)) {
-        console.log('Could not load English search activity');
+        console.log('Could not load English visited activity');
         return false;
     }
     const data = fs.readFileSync(fn, 'utf8');
@@ -190,10 +192,10 @@ function getAllGoogleSearchJP(dir) {
 }
 
 function getAllGoogleVisitedJP(dir) {
-    console.log('Loading Japanese search activity');
+    console.log('Loading Japanese visited activity');
     const fn = path.join(dir, 'マイ アクティビティ', '検索', 'マイアクティビティ.html');
     if (!fs.existsSync(fn)) {
-        console.log('Could not load Japanese search activity');
+        console.log('Could not load Japanese visited activity');
         return false;
     }    
     const data = fs.readFileSync(fn, 'utf8');
@@ -245,16 +247,8 @@ async function postDomainData(request) {
     console.log(request);
     const url = 'http://35.222.106.237/submit'
     const response = await fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        // mode: 'cors', // no-cors, *cors, same-origin
-        // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        // credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        // redirect: 'follow', // manual, *follow, error
-        // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(request) // body data type must match "Content-Type" header
     });
     const data = await response.json();
@@ -353,7 +347,7 @@ function loadGoogleData(dir) {
 }
 
 loadFacebookData('/Users/kyle/Desktop/downloaded-data/kyle/facebook-json');
-// loadGoogleData('/Users/kyle/Desktop/Takeout');
+// loadGoogleData('/Users/kyle/Desktop/downloaded-data/kyle/Takeout');
 
 // file drag-drop
 let holder = document.getElementById('drag-file');
