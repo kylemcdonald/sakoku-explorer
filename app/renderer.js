@@ -346,7 +346,7 @@ function loadGoogleData(dir) {
     }
 }
 
-loadFacebookData('/Users/kyle/Desktop/downloaded-data/kyle/facebook-json');
+// loadFacebookData('/Users/kyle/Desktop/downloaded-data/kyle/facebook-json');
 // loadGoogleData('/Users/kyle/Desktop/downloaded-data/kyle/Takeout');
 
 // file drag-drop
