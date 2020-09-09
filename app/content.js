@@ -4,6 +4,8 @@ const google = require('./google');
 const copy = require('./copy.json');
 const computerId = require('node-machine-id').machineIdSync({original: true});
 
+// const endpoint = 'http://localhost:8080';
+const endpoint = 'https://sakoku.uc.r.appspot.com';
 const backends = [
     facebook,
     google
@@ -151,6 +153,17 @@ function prepareDataAwardsData() {
     }
     data = JSON.stringify(data);
     document.getElementById('data-awards-data').innerText = data;
+}
+
+async function uploadDataAwardsData() {
+    let data = document.getElementById('data-awards-data').value;
+    console.log(data);
+    const response = fetch(endpoint + '/submit/data-awards', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: data
+    });
+    console.log(await response);
 }
 
 function prepareSameWebsitesData() {
