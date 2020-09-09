@@ -10,6 +10,7 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
+      enableRemoteModule: true,
       nodeIntegration: true, // allows node in renderer
       preload: path.join(__dirname, 'preload.js')
     }
