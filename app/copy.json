@@ -9,7 +9,8 @@
         "google": {
             "name": "Google",
             "source": {
-                "searchActivity": "Search Activity"
+                "searchActivity": "Search Activity",
+                "visitedActivity": "Visited Activity"
             }
         }
     },

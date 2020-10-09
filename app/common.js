@@ -7,13 +7,6 @@ module.exports = {
     anyFile: (dir, fns) => {
         return fns.map(fn => fs.existsSync(path.join(dir, fn))).some(e => e);
     },
-    readFileSyncCache: (fn) => {
-        if (!(fn in cache)) {
-            cache[fn] = fs.readFileSync(fn, 'utf8');
-            // window.fileCache = cache;
-        }
-        return cache[fn];
-    },
     loadJson: (fn) => {
         const dataRaw = fs.readFileSync(fn, 'utf8');
         const data = JSON.parse(dataRaw);

@@ -15,7 +15,7 @@ module.exports = {
 // language-agnostic "activity" loader
 // ignores the "products" and "locations" section
 function loadActivity(fn) {
-    const data = common.readFileSyncCache(fn);
+    const data = common.readFileSync(fn, 'utf8');
     const parts = data.split('outer-cell');
     const titleRe = /title">(.+?)<br/s;
     const bodyRe = /body-1">(.+?)<\/div/s;
@@ -58,9 +58,18 @@ function loadSearchActivity(dir, lang) {
     const activity = loadActivity(fn)
         .filter(e=>e.links.length);
 
+    const searchFilter = {
+        'en': (e=>e.body.startsWith('Searched')),
+        'jp': (e=>e.body.includes('を検索しました')),
+    }[lang];
+    const visitedFilter = {
+        'en': (e=>e.body.startsWith('Visited')),
+        'jp': (e=>e.body.includes('にアクセスしました'))
+    }[lang];
+
     const events = {
         'searchActivity': activity
-            .filter(e=>e.body.startsWith('Searched'))
+            .filter(searchFilter)
             .map(e => {
                 return {
                     title: decodeHtmlEntities(e.links[0].text),
@@ -69,12 +78,16 @@ function loadSearchActivity(dir, lang) {
                 }
             }),
         'visitedActivity': activity
-            .filter(e=>e.body.startsWith('Visited'))
+            .filter(visitedFilter)
             .map(e => {
-                let url = extractUrlFromVisited(e.links[0].url);
-                let domain = common.extractDomain(url);
+                const url = extractUrlFromVisited(e.links[0].url);
+                const domain = common.extractDomain(url);
+                let title = decodeHtmlEntities(e.links[0].text);
+                if (title == url) {
+                    title = domain;
+                }
                 return {
-                    title: decodeHtmlEntities(e.links[0].text),
+                    title: title,
                     url: url,
                     domain: domain,
                     start: e.start
@@ -97,7 +110,9 @@ module.exports.loadDirectory = dir => {
     rootDir = dir;
 
     try {
-        Object.assign(events, loadSearchActivity(dir, lang));
+        const start = window.performance.now();
+        Object.assign(events, loadSearchActivity(dir, lang)); // 1500ms+
+        console.log(window.performance.now() - start);
     } catch (err) {
         console.error('Error loading search activity');
     }
