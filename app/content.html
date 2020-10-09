@@ -5,8 +5,11 @@
   <meta charset="UTF-8">
   <title>Sakoku Explorer</title>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="tooltip.css"/>
   <link href='./node_modules/fullcalendar/main.css' rel='stylesheet' />
   <script src='./node_modules/fullcalendar/main.js'></script>
+  <script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
+  <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
 </head>
 
 <body>
@@ -52,6 +55,14 @@
         <div>
           <button onclick="prepareSameWebsitesData()">Prepare data</button>
           <button onclick="uploadData('same-websites')">Share data</button>
+        </div>
+
+        <h1>Same Videos</h1>
+        <p>What videos has everyone watched? The video ids will be sent to the server. This is the data that will be sent:</p>
+        <textarea rows="3" cols="60" id="same-videos-data" readonly></textarea>
+        <div>
+          <button onclick="prepareSameVideosData()">Prepare data</button>
+          <button onclick="uploadData('same-videos')">Share data</button>
         </div>
       </div>
 

@@ -3,14 +3,28 @@
         "facebook": {
             "name": "Facebook",
             "source": {
-                "offFacebookActivity": "Off-Facebook Activity"
+                "offFacebookActivity": "Off-Facebook Activity",
+                "searchHistory": "Search History",
+                "comments": "Comments",
+                "friends": "Friends",
+                "likesAndReactions": "Likes and Reactions",
+                "notifications": "Notifications",
+                "posts": "Posts",
+                "viewed": "Viewed",
+                "visited": "Visited"
             }
         },
         "google": {
             "name": "Google",
             "source": {
                 "searchActivity": "Search Activity",
-                "visitedActivity": "Visited Activity"
+                "visitedActivity": "Visited Activity",
+                "youtubeSearchActivity": "YouTube Search Activity",
+                "youtubeWatchActivity": "YouTube Watch Activity",
+                "imageSearchActivity": "Image Search Activity",
+                "imageViewActivity": "Image View Activity",
+                "adsActivity": "Ads Activity",
+                "mapsActivity": "Maps Activity"
             }
         }
     },

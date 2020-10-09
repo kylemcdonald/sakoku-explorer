@@ -12,10 +12,15 @@ module.exports = {
     name: 'google'
 };
 
-// language-agnostic "activity" loader
+function parseDatetime(datetime) {
+    datetime = datetime.replace('JST', 'UTC+9');
+    return new Date(Date.parse(datetime)).toISOString()
+}
+
+// language-agnostic "my activity" loader
 // ignores the "products" and "locations" section
 function loadActivity(fn) {
-    const data = common.readFileSync(fn, 'utf8');
+    const data = fs.readFileSync(fn, 'utf8');
     const parts = data.split('outer-cell');
     const titleRe = /title">(.+?)<br/s;
     const bodyRe = /body-1">(.+?)<\/div/s;
@@ -28,7 +33,7 @@ function loadActivity(fn) {
             body: body,
             title: pieces[2].match(titleRe)[1],
             links: [...(body.matchAll(linkRe))].map(e=>e.groups),
-            start: new Date(Date.parse(body.match(datetimeRe)[1])).toISOString()
+            start: parseDatetime(body.match(datetimeRe)[1])
         }
     });
     return pieces;
@@ -38,25 +43,26 @@ function loadActivity(fn) {
 function decodeHtmlEntities(input) {
     input = input
         .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
         .replace(/&amp;/g, "&")
     return input;
 }
 
+const visitedUrlPrefixRe = /^.+url\?q=/;
+const visitedUrlPostfixRe = /&amp;usg=.+$/;
 function extractUrlFromVisited(url) {
-    url = url.replace(/^.+\?q=/, '');
-    url = url.replace(/&amp;usg=.+$/, '');
+    url = url.replace(visitedUrlPrefixRe, '');
+    url = url.replace(visitedUrlPostfixRe, '');
     return url;
 }
 
-// throws an error if the file is not found
-function loadSearchActivity(dir, lang) {
-    const fn = {
-        'en': path.join(dir, 'My Activity', 'Search', 'MyActivity.html'),
-        'jp': path.join(dir, 'マイ アクティビティ', '検索', 'マイアクティビティ.html')
-    }[lang];
+// function filterActivity(dir, lang, paths)
 
-    const activity = loadActivity(fn)
-        .filter(e=>e.links.length);
+function loadSearchActivity(dir, lang) {
+    const paths = {
+        'en': ['My Activity', 'Search', 'MyActivity.html'],
+        'jp': ['マイ アクティビティ', '検索', 'マイアクティビティ.html']
+    };
 
     const searchFilter = {
         'en': (e=>e.body.startsWith('Searched')),
@@ -67,7 +73,11 @@ function loadSearchActivity(dir, lang) {
         'jp': (e=>e.body.includes('にアクセスしました'))
     }[lang];
 
-    const events = {
+    const fn = path.join(dir, ...paths[lang]);
+    const activity = loadActivity(fn)
+        .filter(e=>e.links.length);
+
+    return {
         'searchActivity': activity
             .filter(searchFilter)
             .map(e => {
@@ -89,13 +99,151 @@ function loadSearchActivity(dir, lang) {
                 return {
                     title: title,
                     url: url,
-                    domain: domain,
+                    site: domain,
                     start: e.start
                 }
             })
     };
+}
 
-    return events;
+function loadYouTubeActivity(dir, lang) {
+    const paths = {
+        'en': ['My Activity', 'YouTube', 'MyActivity.html'],
+        'jp': ['マイ アクティビティ', 'YouTube', 'マイアクティビティ.html']
+    };
+
+    const fn = path.join(dir, ...paths[lang]);
+    const activity = loadActivity(fn)
+        .filter(e=>e.links.length);
+
+    const searchFilter = {
+        'en': (e=>e.body.startsWith('Searched')),
+        'jp': (e=>e.body.includes('を検索しました')),
+    }[lang];
+    const watchFilter = {
+        'en': (e=>e.body.startsWith('Watched')),
+        'jp': (e=>e.body.includes('を視聴しました'))
+    }[lang];
+
+    const videoIdRe = /v=(.+)/;
+
+    return {
+        'youtubeSearchActivity': activity
+            .filter(searchFilter)
+            .map(e => {
+                return {
+                    title: decodeHtmlEntities(e.links[0].text),
+                    url: e.links[0].url,
+                    start: e.start
+                }
+            }),
+        'youtubeWatchActivity': activity
+            .filter(watchFilter)
+            .map(e => {
+                const url = e.links[0].url;
+                const videoId = url.match(videoIdRe)[1];
+                return {
+                    title: decodeHtmlEntities(e.links[0].text),
+                    url: url,
+                    video: videoId,
+                    start: e.start
+                }
+            })
+    };
+}
+
+function loadImageSearchActivity(dir, lang) {
+    const paths = {
+        'en': ['My Activity', 'Image Search', 'MyActivity.html'],
+        'jp': ['マイ アクティビティ', '画像検索', 'マイアクティビティ.html']
+    };
+
+    const fn = path.join(dir, ...paths[lang]);
+    const activity = loadActivity(fn)
+        .filter(e=>e.links.length);
+
+    const searchFilter = {
+        'en': (e=>e.body.startsWith('Searched')),
+        'jp': (e=>e.body.includes('を検索しました')),
+    }[lang];
+    const viewFilter = {
+        'en': (e=>e.body.startsWith('Viewed')),
+        'jp': (e=>e.body.includes('画像を表示'))
+    }[lang];
+
+    return {
+        'imageSearchActivity': activity
+            .filter(searchFilter)
+            .map(e => {
+                return {
+                    title: decodeHtmlEntities(e.links[0].text),
+                    url: e.links[0].url,
+                    start: e.start
+                }
+            }),
+        'imageViewActivity': activity
+            .filter(viewFilter)
+            .map(e => {
+                return {
+                    title: decodeHtmlEntities(e.links[0].text),
+                    url: extractUrlFromVisited(e.links[0].url),
+                    start: e.start
+                }
+            })
+    };
+}
+
+function loadAdsActivity(dir, lang) {
+    const paths = {
+        'en': ['My Activity', 'Ads', 'MyActivity.html'],
+        'jp': ['マイ アクティビティ', 'Ads', 'マイアクティビティ.html']
+    };
+
+    const fn = path.join(dir, ...paths[lang]);
+    const activity = loadActivity(fn)
+        .filter(e=>e.links.length);
+
+    return {
+        'adsActivity': activity
+            .map(e => {
+                const url = extractUrlFromVisited(e.links[0].url);
+                const domain = common.extractDomain(url);
+                return {
+                    title: domain,
+                    site: domain,
+                    url: url,
+                    start: e.start
+                }
+            })
+    };
+}
+
+function loadMapsActivity(dir, lang) {
+    const paths = {
+        'en': ['My Activity', 'Maps', 'MyActivity.html'],
+        'jp': ['マイ アクティビティ', 'マップ', 'マイアクティビティ.html']
+    };
+
+    const fn = path.join(dir, ...paths[lang]);
+    const activity = loadActivity(fn); // do not filter no links
+
+    return {
+        'mapsActivity': activity
+            .map(e => {
+                // "Used maps" with no other info
+                if (e.links.length == 0) {
+                    return {
+                        title: 'Maps',
+                        start: e.start
+                    }
+                }
+                return {
+                    title: decodeHtmlEntities(e.links[0].text),
+                    url: e.links[0].url,
+                    start: e.start
+                }
+            })
+    };
 }
 
 module.exports.loadDirectory = dir => {
@@ -109,13 +257,23 @@ module.exports.loadDirectory = dir => {
 
     rootDir = dir;
 
-    try {
-        const start = window.performance.now();
-        Object.assign(events, loadSearchActivity(dir, lang)); // 1500ms+
-        console.log(window.performance.now() - start);
-    } catch (err) {
-        console.error('Error loading search activity');
-    }
+    [
+        [loadSearchActivity, 'Search Activity'],
+        [loadYouTubeActivity, 'YouTube Activity'],
+        [loadImageSearchActivity, 'ImageSearch Activity'],
+        [loadAdsActivity, 'Ads Activity'],
+        [loadMapsActivity, 'Maps Activity']
+    ].forEach(([loader, name]) => {
+        try {
+            const start = window.performance.now();
+            Object.assign(events, loader(dir, lang));
+            const duration = window.performance.now() - start;
+            console.log(`Loaded ${name}: ${duration}`);
+        } catch (err) {
+            console.error(`Error loading ${name}`);
+            console.error(err);
+        }
+    })
 
     module.exports.events = events;
 }

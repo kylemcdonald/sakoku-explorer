@@ -13,7 +13,7 @@ module.exports = {
         return data;
     },
     extractDomain: (url) => {
-        const hostname = url.match('^(?:https?:\/\/)?(?<hostname>[^:\/\n?]+)', 'i');
+        const hostname = url.match('^(?:https?:\/\/)?(?<hostname>[^:\/\n?%]+)', 'i');
         const domain = hostname.groups.hostname.split('.').slice(-2).join('.');
         return domain;
     }

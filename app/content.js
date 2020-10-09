@@ -112,14 +112,14 @@ function setupCalendar() {
     let elt = document.getElementById('calendar');
     calendar = new FullCalendar.Calendar(elt, {
         aspectRatio: 2,
-        // eventDidMount: function(info) {
-        //     var tooltip = new Tooltip(info.el, {
-        //         title: info.event.title,
-        //         placement: 'top',
-        //         trigger: 'hover',
-        //         container: 'body'
-        //     });
-        // },
+        eventDidMount: function(info) {
+            var tooltip = new Tooltip(info.el, {
+                title: info.event.title,
+                placement: 'top',
+                trigger: 'hover',
+                container: 'body'
+            });
+        },
         scrollTime: '9:00AM',
         initialView: 'timeGridWeek',
         initialDate: today,
@@ -155,27 +155,35 @@ function prepareDataAwardsData() {
     document.getElementById('data-awards-data').innerText = data;
 }
 
-function prepareSameWebsitesData() {
+function prepareSameData(inputFieldName, outputFieldName, outputElement) {
     let groupNumber = document.getElementById('group-number').value;
-    let sites = new Set();
+    let items = new Set();
     for (backend of backends) {
         const events = backend.events;
         if (events === undefined) {
             continue;
         }
         for (key in events) {
-            events[key].forEach(e => {
-                sites.add(e.site);
-            })
+            events[key]
+                .filter(e => (inputFieldName in e))
+                .forEach(e => { items.add(e[inputFieldName]) })
         }
     }
     data = {
-        'sites': [...sites],
         'id': computerId,
         'group': groupNumber
-    }
+    };
+    data[outputFieldName] = [...items];
     data = JSON.stringify(data);
-    document.getElementById('same-websites-data').innerText = data;
+    document.getElementById(outputElement).innerText = data;
+}
+
+function prepareSameWebsitesData() {
+    prepareSameData('site', 'sites', 'same-websites-data');
+}
+
+function prepareSameVideosData() {
+    prepareSameData('video', 'videos', 'same-videos-data');
 }
 
 async function uploadData(name) {
@@ -216,9 +224,9 @@ holder.ondrop = (e) => {
 setupCalendar();
 setupComputerId();
 hideOverlay();
-// loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/facebook-json');
+loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/facebook-json');
 // loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout-jp');
-loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout');
+// loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout');
 
 // const parser = require('./google-parser');
 // const matches = parser.readFile('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout/My Activity/Search/MyActivity.html');

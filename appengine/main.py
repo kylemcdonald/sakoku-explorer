@@ -8,7 +8,8 @@ client = firestore.Client()
 
 valid_collections = (
     'data-awards',
-    'same-websites'
+    'same-websites',
+    'same-videos'
 )
 
 app = Flask(__name__)
@@ -55,24 +56,31 @@ def summary_data_awards():
     output += f' max {computer_ids[min_i]} {counts[max_i]}\n'
     return output
 
-@app.route('/summary/same-websites')
-def summary_same_websites():
-    max_sites = 10
+def get_same(collection_name, field_name):
+    max_results = 10
     min_common = 1
-    if 'max_sites' in request.args:
-        max_sites = int(request.args.get('max_sites'))
+    if 'max_results' in request.args:
+        max_results = int(request.args.get('max_results'))
     if 'min_common' in request.args:
         min_common = int(request.args.get('min_common'))
-    sites = []
-    for doc in client.collection('same-websites').get():
+    results = []
+    for doc in client.collection(collection_name).get():
         data = doc.to_dict()
-        sites.extend(data['sites'])
+        results.extend(data[field_name])
     output = ''
-    random.shuffle(sites)
-    for site, count in Counter(sites).most_common(max_sites):
+    random.shuffle(results)
+    for site, count in Counter(results).most_common(max_results):
         if count >= min_common:
             output += f'{count} {site}\n'
     return output
+
+@app.route('/summary/same-websites')
+def summary_same_websites():
+    return get_same('same-websites', 'sites')
+
+@app.route('/summary/same-videos')
+def summary_same_videos():
+    return get_same('same-videos', 'videos')
 
 @app.route('/submit/<collection>', methods=['POST'])
 def submit(collection):
