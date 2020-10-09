@@ -12,11 +12,26 @@ module.exports = {
     name: 'google'
 };
 
-// throws an error if the file does not exist
-function loadRegexGroups(fn, regex) {
-    const data = fs.readFileSync(fn, 'utf8');
-    const matches = data.matchAll(regex, 'g');
-    return [...matches].map(e => e.groups);
+// language-agnostic "activity" loader
+// ignores the "products" and "locations" section
+function loadActivity(fn) {
+    const data = common.readFileSyncCache(fn);
+    const parts = data.split('outer-cell');
+    const titleRe = /title">(.+?)<br/s;
+    const bodyRe = /body-1">(.+?)<\/div/s;
+    const linkRe = /<a href="(?<url>.+?)">(?<text>.+?)<\/a>/gs;
+    const datetimeRe = />([^<]+)$/;
+    const pieces = parts.slice(1).map(e => {
+        const pieces = e.split('<div');
+        const body = pieces[3].match(bodyRe)[1];
+        return {
+            body: body,
+            title: pieces[2].match(titleRe)[1],
+            links: [...(body.matchAll(linkRe))].map(e=>e.groups),
+            start: new Date(Date.parse(body.match(datetimeRe)[1])).toISOString()
+        }
+    });
+    return pieces;
 }
 
 // need a more comprehensive solution that is still fast
@@ -27,22 +42,46 @@ function decodeHtmlEntities(input) {
     return input;
 }
 
+function extractUrlFromVisited(url) {
+    url = url.replace(/^.+\?q=/, '');
+    url = url.replace(/&amp;usg=.+$/, '');
+    return url;
+}
+
 // throws an error if the file is not found
 function loadSearchActivity(dir, lang) {
     const fn = {
         'en': path.join(dir, 'My Activity', 'Search', 'MyActivity.html'),
         'jp': path.join(dir, 'マイ アクティビティ', '検索', 'マイアクティビティ.html')
     }[lang];
-    const regex = {
-        'en': 'Searched for.+?>(?<title>.+?)</a><br>(?<datetime>.+?)<',
-        'jp': 'body-1">「 <a .+?>(?<title>.+?)</a> 」を検索しました<br>(?<datetime>.+?)( JST)?<'
-    }[lang];
-    let events = loadRegexGroups(fn, regex).map(e => {
-        return {
-            title: decodeHtmlEntities(e.title),
-            start: new Date(Date.parse(e.datetime)).toISOString()
-        }
-    })
+
+    const activity = loadActivity(fn)
+        .filter(e=>e.links.length);
+
+    const events = {
+        'searchActivity': activity
+            .filter(e=>e.body.startsWith('Searched'))
+            .map(e => {
+                return {
+                    title: decodeHtmlEntities(e.links[0].text),
+                    url: e.links[0].url,
+                    start: e.start
+                }
+            }),
+        'visitedActivity': activity
+            .filter(e=>e.body.startsWith('Visited'))
+            .map(e => {
+                let url = extractUrlFromVisited(e.links[0].url);
+                let domain = common.extractDomain(url);
+                return {
+                    title: decodeHtmlEntities(e.links[0].text),
+                    url: url,
+                    domain: domain,
+                    start: e.start
+                }
+            })
+    };
+
     return events;
 }
 
@@ -58,10 +97,9 @@ module.exports.loadDirectory = dir => {
     rootDir = dir;
 
     try {
-        events.searchActivity = loadSearchActivity(dir, lang);
+        Object.assign(events, loadSearchActivity(dir, lang));
     } catch (err) {
-        console.log('no search activity');
-        console.log(err)
+        console.error('Error loading search activity');
     }
 
     module.exports.events = events;

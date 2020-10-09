@@ -155,61 +155,38 @@ function prepareDataAwardsData() {
     document.getElementById('data-awards-data').innerText = data;
 }
 
-async function uploadDataAwardsData() {
-    let data = document.getElementById('data-awards-data').value;
-    console.log(data);
-    const response = fetch(endpoint + '/submit/data-awards', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: data
-    });
-    console.log(await response);
-}
-
 function prepareSameWebsitesData() {
     let groupNumber = document.getElementById('group-number').value;
-    let data = {};
+    let sites = new Set();
     for (backend of backends) {
-        let totals = {};
         const events = backend.events;
         if (events === undefined) {
             continue;
         }
         for (key in events) {
-            totals[key] = events[key].length;
+            events[key].forEach(e => {
+                sites.add(e.site);
+            })
         }
-        data[backend.name] = totals;
     }
     data = {
-        'totals': data,
-        'id': computerId,
-        'group': groupNumber
-    }
-    data = JSON.stringify(data);
-    document.getElementById('data-awards-data').innerText = data;
-}
-
-function prepareSameWebsitesData() {
-    let groupNumber = document.getElementById('group-number').value;
-    let data = {};
-    for (backend of backends) {
-        let totals = {};
-        const events = backend.events;
-        if (events === undefined) {
-            continue;
-        }
-        for (key in events) {
-            totals[key] = events[key].length;
-        }
-        data[backend.name] = totals;
-    }
-    data = {
-        'websites': data,
+        'sites': [...sites],
         'id': computerId,
         'group': groupNumber
     }
     data = JSON.stringify(data);
     document.getElementById('same-websites-data').innerText = data;
+}
+
+async function uploadData(name) {
+    let data = document.getElementById(name + '-data').value;
+    console.log(data);
+    const response = fetch(endpoint + '/submit/' + name, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: data
+    });
+    console.log(await response);
 }
 
 function setupComputerId() {
@@ -239,6 +216,12 @@ holder.ondrop = (e) => {
 setupCalendar();
 setupComputerId();
 hideOverlay();
-loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/facebook-json');
+// loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/facebook-json');
 // loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout-jp');
-// loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout');
+loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout');
+
+// const parser = require('./google-parser');
+// const matches = parser.readFile('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout/My Activity/Search/MyActivity.html');
+// const matches = parser.readFile('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout-jp/マイ アクティビティ/検索/マイアクティビティ.html');
+// const search = parser.parseSearch(matches);
+// console.log(search);

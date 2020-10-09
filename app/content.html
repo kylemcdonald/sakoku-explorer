@@ -25,7 +25,7 @@
       <div id="overview-view">
       </div>
 
-      <div id="calendar-view">
+      <div id="calendar-view" style="display:block">
         <div id="calendar"></div>
       </div>
 
@@ -33,7 +33,7 @@
         <h1>Map</h1>
       </div>
 
-      <div id="games-view" style="display:block">
+      <div id="games-view">
         <div style="display:none">If you upload data, it will be associated with your group number and computer ID.</div>
         <div style="display:none">Computer ID: <span id="computer-id"></span></div>
         <div>Group number: <input id="group-number" maxlength=2 size=2 value="1"></input></div>
@@ -43,15 +43,15 @@
         <textarea rows="3" cols="60" id="data-awards-data" readonly></textarea>
         <div>
           <button onclick="prepareDataAwardsData()">Prepare data</button>
-          <button onclick="uploadDataAwardsData()">Share my totals</button>
+          <button onclick="uploadData('data-awards')">Share data</button>
         </div>
 
         <h1>Same Websites</h1>
-        <p>What websites have everyone visited? Only the domains will be sent to the server, not the pages. This is the data that will be sent:</p>
+        <p>What websites and apps has everyone used? Only the names will be sent to the server, not the pages. This is the data that will be sent:</p>
         <textarea rows="3" cols="60" id="same-websites-data" readonly></textarea>
         <div>
           <button onclick="prepareSameWebsitesData()">Prepare data</button>
-          <button>Share my domains</button>
+          <button onclick="uploadData('same-websites')">Share data</button>
         </div>
       </div>
 

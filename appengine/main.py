@@ -1,12 +1,14 @@
 from flask import Flask, request, abort, jsonify, abort
 from werkzeug.exceptions import HTTPException
 from google.cloud import firestore
-from collections import defaultdict
+from collections import defaultdict, Counter
+import random
 
 client = firestore.Client()
 
 valid_collections = (
-    'data-awards'
+    'data-awards',
+    'same-websites'
 )
 
 app = Flask(__name__)
@@ -29,7 +31,7 @@ def summary_data_awards():
     output = ''
     totals = defaultdict(list)
     for doc in client.collection('data-awards').get():
-        data = doc.to_dict() 
+        data = doc.to_dict()
         computer_id = data['id']
         for backend, categories in data['totals'].items():
             for name, count in categories.items():
@@ -51,6 +53,25 @@ def summary_data_awards():
     max_i = argmax(counts)
     output += f' min {computer_ids[min_i]} {counts[min_i]}\n'
     output += f' max {computer_ids[min_i]} {counts[max_i]}\n'
+    return output
+
+@app.route('/summary/same-websites')
+def summary_same_websites():
+    max_sites = 10
+    min_common = 1
+    if 'max_sites' in request.args:
+        max_sites = int(request.args.get('max_sites'))
+    if 'min_common' in request.args:
+        min_common = int(request.args.get('min_common'))
+    sites = []
+    for doc in client.collection('same-websites').get():
+        data = doc.to_dict()
+        sites.extend(data['sites'])
+    output = ''
+    random.shuffle(sites)
+    for site, count in Counter(sites).most_common(max_sites):
+        if count >= min_common:
+            output += f'{count} {site}\n'
     return output
 
 @app.route('/submit/<collection>', methods=['POST'])
