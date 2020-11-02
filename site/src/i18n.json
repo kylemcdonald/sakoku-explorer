@@ -1,0 +1,16 @@
+{
+  "en": {
+    "intro": "This app will guide you through the process of exploring the data collected by Facebook and Google. All of your data stays on your computer. None of your data is sent remotely without your explicit consent.",
+    "drop": {
+      "header": "PLEASE DROP YOUR DATA WITHIN THE DOTTED BOX DRAWN ABOVE.",
+      "description": "All of your data stays on your computer. None of your data is sent remotely without your explicit consent."
+    }
+  },
+  "jp": {
+    "intro": "このアプリは、FacebookやGoogleが収集したデータを探る過程を案内してくれます。お客様のデータはすべてお客様のコンピュータに保存されます。お客様のデータは、お客様の明示的な同意なしにリモートで送信されることはありません。",
+    "drop": {
+      "header": "あなたのデータをこの中に入れてください。上に描かれたドットボックス。",
+      "description": "お客様のデータはすべてお客様のコンピュータに保存されます。お客様のデータは、お客様の明示的な同意なしにリモートで送信されることはありません。"
+    }
+  }
+}
