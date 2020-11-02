@@ -2,6 +2,8 @@ import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
+
+import postcss from 'rollup-plugin-postcss';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 
@@ -40,6 +42,9 @@ export default {
 		json({
 			compact: true
 		}),
+
+		// for FullCalendar
+		postcss(),
 
 		svelte({
 			// enable run-time checks when not in production
