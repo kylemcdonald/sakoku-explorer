@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "sirv-cli": "^1.0.0",
+    "svelte-dropzone": "^1.0.6",
+    "svelte-file-dropzone": "^0.0.12",
     "svelte-routing": "^1.4.2"
   }
 }
