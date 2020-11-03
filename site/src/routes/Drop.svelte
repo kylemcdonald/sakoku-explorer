@@ -28,7 +28,7 @@
     <Dropzone
       on:drop={handleFilesSelect}
       accept=""
-      containerStyles="border:  2px dotted black; margin-bottom: 1em">
+      containerStyles="border: 2px dotted black; margin-bottom: 1em">
       <p/> <!-- Google Facebook -->
     </Dropzone>
     <h1>{$_('drop.header')}</h1>
