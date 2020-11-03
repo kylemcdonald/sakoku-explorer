@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { _ } from "../i18n.js";
   export let type;
 
 	onMount(async () => {
@@ -11,6 +12,7 @@
 <style>
   .emphasis {
     text-transform: uppercase;
+    display: block;
   }
 
   .data-button {
@@ -32,20 +34,14 @@
 </style>
 
 <div class='center-block'>
-  <div class='content'>
-    <h1>Same {type}</h1>
-    <textarea></textarea>
-    <button class='data-button'>Prepare Data</button>
-    <button class='data-button'>Share Data</button>
-    <p>
-      <span class='emphasis'>
-        {#if type === 'websites'}
-          What websites and apps has everyone used?
-        {:else if type === 'videos'}
-          What videos has everyone watched?
-        {/if}
-      </span>
-      Only the names will be sent to the server, not the pages. This is the data that will be sent.
-    </p>
-  </div>
+  <h1>{$_('games.same-'+type+'-header')}</h1>
+  <textarea></textarea>
+  <button class='data-button'>{$_('games.prepare-data')}</button>
+  <button class='data-button'>{$_('games.share-data')}</button>
+  <p>
+    <span class='emphasis'>
+      {$_('games.same-'+type+'-question')}
+    </span>
+      {$_('games.same-'+type+'-description')}
+  </p>
 </div>

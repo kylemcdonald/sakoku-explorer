@@ -65,18 +65,42 @@ h1 {
 	text-transform: uppercase;
 	font-style: italic;
 	font-size: 2em;
+	margin-top: 0;
+}
+
+h2 {
+	margin-top: 0;
+	margin-bottom: 0.5em;
 }
 
 textarea {
 	border: 2px dotted black;
-	width: 50vw;
+	width: 45vw;
 	height: 15em;
 }
 
 
 .center-block {
-	width: 60vw;
+	width: 50vw;
 	margin: 0 auto;
 	text-align: center;
 	height: 100%;
+	margin-top: 5em; /* TEMP */
+}
+
+.center-block-flex {
+
+	display: flex;
+	flex-direction: row;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
 }

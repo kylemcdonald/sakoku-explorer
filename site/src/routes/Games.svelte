@@ -1,5 +1,5 @@
 <script>
-  import { Router, Link, Route } from "svelte-routing";
+  import { _ } from "../i18n.js";
   import Same from '../components/Same.svelte';
 
   let curGame = 'same-websites';
@@ -10,8 +10,16 @@
 
 <nav aria-label='games-nav' class='secondary-nav'>
   <ul role='list'>
-    <li role='listitem'><button on:click={() => curGame = 'same-websites'}>Same Websites</button></li>
-    <li role='listitem'><button on:click={() => curGame = 'same-videos'}>Same Videos</button></li>
+    <li 
+      role='listitem'><button 
+      on:click={() => curGame = 'same-websites'}
+      class='{curGame === "same-websites" ? "selected" : ""}'
+    >{$_('games.same-websites-header')}</button></li>
+    <li 
+      role='listitem'><button
+      on:click={() => curGame = 'same-videos'}
+      class='{curGame === "same-videos" ? "selected" : ""}'
+    >{$_('games.same-videos-header')}</button></li>
   </ul>
 </nav>
 

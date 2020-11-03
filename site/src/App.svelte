@@ -22,11 +22,11 @@
 <Router {url}>
   <nav aria-label='primary'>
     <ul role='list'>
-      <li role='listitem' class=' {url === "" ? "selected" : ""}'><Link to="/">Home</Link>
-      <li role='listitem' class=' {url === "drop-your-data" ? "selected" : ""}'><Link to="drop-your-data">Drop_Your_Data</Link>
-      <li role='listitem' class=' {url === "overview" ? "selected" : ""}'><Link to="overview">Overview</Link>
-      <li role='listitem' class=' {url === "calendar" ? "selected" : ""}'><Link to="calendar">Calendar</Link>
-      <li role='listitem' class=' {url === "games" ? "selected" : ""}'><Link to="games">Games</Link>
+      <li role='listitem' class='{window.location.pathname === "/" ? "selected" : ""}'><Link to="/">Home</Link>
+      <li role='listitem' class='{window.location.pathname === "/drop-your-data" ? "selected" : ""}'><Link to="drop-your-data">Drop_Your_Data</Link>
+      <li role='listitem' class='{window.location.pathname === "/overview" ? "selected" : ""}'><Link to="overview">Overview</Link>
+      <li role='listitem' class='{window.location.pathname === "/calendar" ? "selected" : ""}'><Link to="calendar">Calendar</Link>
+      <li role='listitem' class='{window.location.pathname === "/games" ? "selected" : ""}'><Link to="games">Games</Link>
     </ul>
     <lang>
       <button on:click={() => ($locale = 'jp')} class='{$locale === "jp" ? "selected" : ""}'>JP</button>

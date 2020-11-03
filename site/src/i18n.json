@@ -1,16 +1,115 @@
 {
   "en": {
-    "intro": "This app will guide you through the process of exploring the data collected by Facebook and Google. All of your data stays on your computer. None of your data is sent remotely without your explicit consent.",
-    "drop": {
+    "about": {
+      "header": "Sakoku Explorer",
+      "description-1": "This app will guide you through the process of exploring the data collected by Facebook and Google. All of your data stays on your computer. None of your data is sent remotely without your explicit consent.",
+      "description-2": "All of your data stays on your computer. None of your data is sent remotely without your explicit consent.",
+      "about-alt": "folder icon"
+    }, "drop": {
       "header": "PLEASE DROP YOUR DATA WITHIN THE DOTTED BOX DRAWN ABOVE.",
-      "description": "All of your data stays on your computer. None of your data is sent remotely without your explicit consent."
+      "description": "All of your data stays on your computer. None of your data is sent remotely without your explicit consent.",
+      "drop-alt": "floppy disk icon"
+    },
+    "overview": {
+      "eyes-alt": "eyes icon",
+      "header": "Data Overview",
+      "facebook-header": "Facebook",
+      "facebook-0": "Off-Facebook Activity Total:",
+      "facebook-1": "Search History Total:",
+      "facebook-2": "View Total:",
+      "facebook-3": "Visited Total:",
+      "facebook-4": "Notification Total:",
+      "facebook-5": "Comment Total:",
+      "facebook-6": "Posts Total:",
+      "facebook-7": "Likes and Reactions Total:",
+      "facebook-8": "Friends Total:",
+      "facebook-restrict-header": "to restrict Facebook data collection:",
+      "facebook-restrict-0": "use private browsing or Brave browser",
+      "facebook-restrict-1": "change your Facebook privacy preference here",
+      "facebook-restrict-2": "uninstall Facebook apps from your phone",
+      "facebook-restrict-3": "do not use Facebook to log in to services",
+      "google-header": "Google",
+      "google-0": "Search Activity Total:",
+      "google-1": "Visited Activity Total:",
+      "google-2": "YouTube Search Activity Total:",
+      "google-3": "YouTube Watch Activity Total:",
+      "google-4": "Image Search Activity Total:",
+      "google-5": "Image Viewed Activity Total:",
+      "google-6": "Ads Activity Total:",
+      "google-7": "Maps Activity Total:",
+      "google-restrict-header": "to restrict Google data collection:",
+      "google-restrict-0": "use private browsing or Brave browser",
+      "google-restrict-1": "change your Google privacy preference here",
+      "google-restrict-2": "uninstall Google apps from your phone",
+      "google-restrict-3": "do not use Google to log in to services"
+    },
+    "calendar": {
+    },
+    "games": {
+      "same-websites-header": "Same Websites",
+      "same-websites-question": "What websites and apps has everyone used?",
+      "same-websites-description": "Only the names will be sent to the server, not the pages. This is the data that will be sent.",
+      "same-videos-header": "Same Videos",
+      "same-videos-question": "What videos has everyone watched?",
+      "same-videos-description": "Only the names will be sent to the server, not the videos. This is the data that will be sent.",
+      "prepare-data": "Prepare Data",
+      "share-data": "Share Data"
     }
   },
   "jp": {
-    "intro": "このアプリは、FacebookやGoogleが収集したデータを探る過程を案内してくれます。お客様のデータはすべてお客様のコンピュータに保存されます。お客様のデータは、お客様の明示的な同意なしにリモートで送信されることはありません。",
-    "drop": {
+    "about": {
+      "header": "Sakoku Explorer",
+      "description-1": "このアプリは、facebookやgoogleが収集したデータを探る過程を案内してくれます。",
+      "description-2": "お客様のデータはすべてお客様のコンピュータに保存されます。お客様のデータは、お客様の明示的な同意なしにリモートで送信されることはありません。",
+      "about-alt": "folder icon"
+    }, "drop": {
       "header": "あなたのデータをこの中に入れてください。上に描かれたドットボックス。",
-      "description": "お客様のデータはすべてお客様のコンピュータに保存されます。お客様のデータは、お客様の明示的な同意なしにリモートで送信されることはありません。"
+      "description": "お客様のデータはすべてお客様のコンピュータに保存されます。お客様のデータは、お客様の明示的な同意なしにリモートで送信されることはありません。",
+      "drop-alt": "floppy disk icon"
+    },
+    "overview": {
+      "eyes-alt": "eyes icon",
+      "header": "Data Overview",
+      "facebook-header": "Facebook",
+      "facebook-0": "Off-Facebook Activity Total:",
+      "facebook-1": "Search History Total:",
+      "facebook-2": "View Total:",
+      "facebook-3": "Visited Total:",
+      "facebook-4": "Notification Total:",
+      "facebook-5": "Comment Total:",
+      "facebook-6": "Posts Total:",
+      "facebook-7": "Likes and Reactions Total:",
+      "facebook-8": "Friends Total:",
+      "facebook-restrict-header": "to restrict Facebook data collection:",
+      "facebook-restrict-0": "use private browsing or Brave browser",
+      "facebook-restrict-1": "change your Facebook privacy preference here",
+      "facebook-restrict-2": "uninstall Facebook apps from your phone",
+      "facebook-restrict-3": "do not use Facebook to log in to services",
+      "google-header": "Google",
+      "google-0": "Search Activity Total:",
+      "google-1": "Visited Activity Total:",
+      "google-2": "YouTube Search Activity Total:",
+      "google-3": "YouTube Watch Activity Total:",
+      "google-4": "Image Search Activity Total:",
+      "google-5": "Image Viewed Activity Total:",
+      "google-6": "Ads Activity Total:",
+      "google-7": "Maps Activity Total:",
+      "google-restrict-header": "to restrict Google data collection:",
+      "google-restrict-0": "use private browsing or Brave browser",
+      "google-restrict-1": "change your Google privacy preference here",
+      "google-restrict-2": "uninstall Google apps from your phone",
+      "google-restrict-3": "do not use Google to log in to services"
+    },
+    "calendar": {},
+    "games": {
+      "same-websites-header": "Same Websites",
+      "same-websites-question": "What websites and apps has everyone used?",
+      "same-websites-description": "Only the names will be sent to the server, not the pages. This is the data that will be sent.",
+      "same-videos-header": "Same Videos",
+      "same-videos-question": "What videos has everyone watched?",
+      "same-videos-description": "Only the names will be sent to the server, not the videos. This is the data that will be sent.",
+      "prepare-data": "Prepare Data",
+      "share-data": "Share Data"
     }
   }
 }
