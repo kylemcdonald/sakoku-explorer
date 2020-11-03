@@ -2,66 +2,81 @@ html, body {
 	position: relative;
 	width: 100%;
 	height: 100%;
-}
-
-body {
-	color: #333;
 	margin: 0;
-	padding: 8px;
-	box-sizing: border-box;
-	font-family: sans-serif;
+	padding: 0;
+	font-family: 'Roboto';
+	font-weight: 900;
+	font-size: 2vw;
+	font-style: italic;
 }
 
-a {
-	color: black;
-	text-decoration: underline;
-}
-
-a:hover {
+a, button {
+	color: #E5E5E5;
 	text-decoration: none;
 }
 
-a:visited {
+a:hover, button:hover {
 	color: black;
 }
 
-label {
-	display: block;
-}
-
-input, button, select, textarea {
-	font-family: inherit;
-	font-size: inherit;
-	-webkit-padding: 0.4em 0;
-	padding: 0.4em;
-	margin: 0 0 0.5em 0;
-	box-sizing: border-box;
-	border: 1px solid #ccc;
-	border-radius: 2px;
-}
-
-input:disabled {
-	color: #ccc;
-}
-
 button {
-	color: #333;
-	background-color: #f4f4f4;
-	outline: none;
+	padding: 0;
+	border: none;
+	background: none;
+	cursor: pointer;
+	font-family: 'Roboto';
+	font-weight: 900;
+	font-size: 2vw;
 }
 
-button:disabled {
-	color: #999;
+nav {
+	padding: 0.5em;
+	border-bottom: 2px solid black;
 }
 
-button:not(:disabled):active {
-	background-color: #ddd;
+nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: inline-block;
 }
 
-button:focus {
-	border-color: #666;
+nav li {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+nav a, .secondary-nav button {
+	margin-right: 1em;
+}
+
+
+nav a, nav button {
+	text-transform: uppercase;
+	font-style: italic;
+}
+
+.selected a, .selected {
+	color: black;
 }
 
 h1 {
 	text-transform: uppercase;
+	font-style: italic;
+	font-size: 2em;
+}
+
+textarea {
+	border: 2px dotted black;
+	width: 50vw;
+	height: 15em;
+}
+
+
+.center-block {
+	width: 60vw;
+	margin: 0 auto;
+	text-align: center;
+	height: 100%;
 }
