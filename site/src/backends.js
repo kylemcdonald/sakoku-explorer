@@ -2,6 +2,7 @@ import * as google from "./google.js";
 import * as facebook from "./facebook.js";
 
 const backends = [google, facebook];
+export const used = new Set();
 
 const fileCache = {};
 
@@ -31,7 +32,11 @@ export function loadFromFiles(files) {
       const events = handler.load(raw);
       fileCache[key] = events;
       Object.assign(newEvents, events);
+      used.add(backend.name);
+      console.log(events);
     });
   });
-  return newEvents;
+
+  // addCalendarData(backend.name, backend.events);
+  // addOverviewData(backend.name, backend.events);
 }

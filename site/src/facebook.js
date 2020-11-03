@@ -172,42 +172,42 @@ function loadFriends(raw) {
 
 module.exports.handlers = [
   {
-    path: "ads_and_businesses/your_off-facebook_activity.json",
+    path: "/ads_and_businesses/your_off-facebook_activity.json",
     name: "off-facebok",
     load: loadOffFacebookActivity,
   },
   {
-    path: "search_history/your_search_history.json",
+    path: "/search_history/your_search_history.json",
     name: "search",
     load: loadSearchHistory,
   },
   {
-    path: "about_you/viewed.json",
+    path: "/about_you/viewed.json",
     name: "viewed",
     load: loadViewed,
   },
   {
-    path: "about_you/visited.json",
+    path: "/about_you/visited.json",
     name: "visited",
     load: loadVisited,
   },
   {
-    path: "about_you/notifications.json",
+    path: "/about_you/notifications.json",
     name: "notifications",
     load: loadNotifications,
   },
   {
-    path: "comments/comments.json",
+    path: "/comments/comments.json",
     name: "comments",
     load: loadComments,
   },
   {
-    path: "posts/your_posts_1.json",
+    path: "/posts/your_posts_1.json",
     name: "posts",
     load: loadPosts,
   },
   {
-    path: "likes_and_reactions/posts_and_comments.json",
+    path: "/likes_and_reactions/posts_and_comments.json",
     name: "reactions",
     load: loadLikesAndReactions,
   },
