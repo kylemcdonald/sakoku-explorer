@@ -16,21 +16,24 @@
   lang {
     float:right
   }
+
 </style>
 
 <Router {url}>
-  <nav>
-    <Link to="/">Home</Link>
-    <Link to="drop-your-data">Drop_Your_Data</Link>
-    <Link to="overview">Overview</Link>
-    <Link to="calendar">Calendar</Link>
-    <Link to="games">Games</Link>
+  <nav aria-label='primary'>
+    <ul role='list'>
+      <li role='listitem' class='{window.location.pathname === "/" ? "selected" : ""}'><Link to="/">Home</Link>
+      <li role='listitem' class='{window.location.pathname === "/drop-your-data" ? "selected" : ""}'><Link to="drop-your-data">Drop_Your_Data</Link>
+      <li role='listitem' class='{window.location.pathname === "/overview" ? "selected" : ""}'><Link to="overview">Overview</Link>
+      <li role='listitem' class='{window.location.pathname === "/calendar" ? "selected" : ""}'><Link to="calendar">Calendar</Link>
+      <li role='listitem' class='{window.location.pathname === "/games" ? "selected" : ""}'><Link to="games">Games</Link>
+    </ul>
     <lang>
-      <button on:click={() => ($locale = 'jp')}>JP</button>
-      <button on:click={() => ($locale = 'en')}>EN</button>
+      <button on:click={() => ($locale = 'jp')} class='{$locale === "jp" ? "selected" : ""}'>JP</button>
+      <button on:click={() => ($locale = 'en')} class='{$locale === "en" ? "selected" : ""}'>EN</button>
     </lang>
   </nav>
-  <div>
+  <section>
     <Route path="/">
       <Home />
     </Route>
@@ -46,5 +49,5 @@
     <Route path="games">
       <Games />
     </Route>
-  </div>
+  </section>
 </Router>

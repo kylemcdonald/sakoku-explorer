@@ -28,14 +28,27 @@
 </script>
 
 <style>
+  .center-block {
+    text-align: left;
+  }
+
+  .right-col {
+    margin-left: 2em;
+  }
 </style>
 
-<Dropzone
-  on:drop={handleFilesSelect}
-  accept=""
-  containerStyles="border-color:black">
-  <p>Drag and drop files here, or click to select</p>
-</Dropzone>
-
-<h1>{$_('drop.header')}</h1>
-<p>{$_('drop.description')}</p>
+<div class='center-block center-block-flex'>
+  <div class='left-col'>
+    <img src='../assets/floppy.svg' alt='{$_('drop.floppy-alt')}'>
+  </div>
+  <Dropzone
+    on:drop={handleFilesSelect}
+    accept=""
+    containerStyles="border-color:black">
+    <p>Drag and drop files here, or click to select</p>
+  </Dropzone>
+  <div class='right-col'>
+    <h1>{$_('drop.header')}</h1>
+    <p>{$_('drop.description')}</p>
+  </div>
+</div>
