@@ -39,6 +39,7 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		// for i18n.json
 		json({
 			compact: true
 		}),
