@@ -13,12 +13,12 @@
     <li 
       role='listitem'><button 
       on:click={() => curGame = 'same-websites'}
-      class='{curGame === "same-websites" ? "selected" : ""}'
+      class='{curGame === "same-websites" ? "active" : ""}'
     >{$_('games.same-websites-header')}</button></li>
     <li 
       role='listitem'><button
       on:click={() => curGame = 'same-videos'}
-      class='{curGame === "same-videos" ? "selected" : ""}'
+      class='{curGame === "same-videos" ? "active" : ""}'
     >{$_('games.same-videos-header')}</button></li>
   </ul>
 </nav>
