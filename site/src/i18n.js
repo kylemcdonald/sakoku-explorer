@@ -24,6 +24,12 @@ export const _ = derived(
     if (base !== undefined) {
       return base;
     }
-    return getSubKey(translations[fallback], word);
+    const alternative = getSubKey(translations[fallback], word);
+    if (alternative === undefined) {
+      console.error('No i18n for "' + word + '"');
+      return word;
+    }
+    console.warn('Using fallback i18n for "' + word + '"');
+    return alternative;
   }
 );

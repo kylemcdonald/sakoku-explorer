@@ -81,8 +81,10 @@ function loadSearchActivity(dir, lang) {
         'searchActivity': activity
             .filter(searchFilter)
             .map(e => {
+                const title = decodeHtmlEntities(e.links[0].text);
                 return {
-                    title: decodeHtmlEntities(e.links[0].text),
+                    title: title,
+                    search: title,
                     url: e.links[0].url,
                     start: e.start
                 }
@@ -131,8 +133,10 @@ function loadYouTubeActivity(dir, lang) {
         'youtubeSearchActivity': activity
             .filter(searchFilter)
             .map(e => {
+                const title = decodeHtmlEntities(e.links[0].text);
                 return {
-                    title: decodeHtmlEntities(e.links[0].text),
+                    title: title,
+                    search: title,
                     url: e.links[0].url,
                     start: e.start
                 }
@@ -175,8 +179,10 @@ function loadImageSearchActivity(dir, lang) {
         'imageSearchActivity': activity
             .filter(searchFilter)
             .map(e => {
+                const title = decodeHtmlEntities(e.links[0].text);
                 return {
-                    title: decodeHtmlEntities(e.links[0].text),
+                    title: title,
+                    search: title,
                     url: e.links[0].url,
                     start: e.start
                 }

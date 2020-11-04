@@ -2,9 +2,6 @@ import * as google from "./google.js";
 import * as facebook from "./facebook.js";
 
 const backends = [google, facebook];
-export const used = new Set();
-
-const fileCache = {};
 
 function findPath(file, handlers) {
   const valid = handlers.filter((e) => file.path.endsWith(e.path));
@@ -12,6 +9,9 @@ function findPath(file, handlers) {
     return valid[0];
   }
 }
+
+export const used = new Set();
+export const eventCache = {};
 
 export function loadFromFiles(files) {
   let newEvents = {};
@@ -23,20 +23,17 @@ export function loadFromFiles(files) {
         return;
       }
       const key = backend.name + "/" + handler.name;
-      if (key in fileCache) {
+      if (key in eventCache) {
         // already loaded previously
         return;
       }
       console.log("loading " + file.path + " with " + key);
       const raw = await file.text();
       const events = handler.load(raw);
-      fileCache[key] = events;
+      eventCache[key] = events;
       Object.assign(newEvents, events);
       used.add(backend.name);
       console.log(events);
     });
   });
-
-  // addCalendarData(backend.name, backend.events);
-  // addOverviewData(backend.name, backend.events);
 }
