@@ -26,7 +26,7 @@
       initialView: 'timeGridWeek',
       initialDate: today,
       headerToolbar: {
-        left: 'prev,next today',
+        left: 'today prev,next',
         center: 'title',
         right: 'dayGridMonth,timeGridWeek'
       }, 

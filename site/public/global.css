@@ -157,3 +157,12 @@ textarea {
 #sakocal .fc-button-active {
 	color: black;
 }
+
+#sakocal .fc-next-button, #sakocal .fc-prev-button, #sakocal .fc-button-group {
+	padding: 0;
+	margin: 0;
+}
+
+#sakocal .fc-day-today {
+	background: none;
+}
