@@ -18,6 +18,10 @@
     float:right
   }
 
+  lang button {
+    margin-left: 0.5em;
+  }
+
 </style>
 
 <Router {url}>
@@ -30,8 +34,8 @@
       <li role='listitem'><NavLink to="games">Games</NavLink>
     </ul>
     <lang>
-      <button on:click={() => ($locale = 'jp')} class='{$locale === "jp" ? "active" : ""}'>JP</button>
       <button on:click={() => ($locale = 'en')} class='{$locale === "en" ? "active" : ""}'>EN</button>
+      <button on:click={() => ($locale = 'jp')} class='{$locale === "jp" ? "active" : ""}'>JP</button>
     </lang>
   </nav>
   <section>

@@ -48,5 +48,5 @@ async function loadBackends(file) {
     Object.assign(newEvents, events);
     used.add(backend.name);
     console.log(events);
-  });
+  }, undefined);
 }

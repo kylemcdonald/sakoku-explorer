@@ -154,7 +154,7 @@ textarea {
 #sakocal .fc-dayGridMonth-button, #sakocal .fc-timeGridWeek-button {
 	color: #E5E5E5;
 }
-#sakocal .fc-button-active {
+#sakocal .fc-button-active, #sakocal .fc-dayGridMonth-button:hover, #sakocal .fc-timeGridWeek-button:hover {
 	color: black;
 }
 
