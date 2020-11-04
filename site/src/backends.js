@@ -15,22 +15,23 @@ export const eventCache = {};
 
 export async function loadFromFiles(files) {
 
-  await files.reduce(async (memo, file) => {
-    await memo;
-    await loadBackends(file);
+  await Promise.all(files.map(loadBackends));
 
-  }, undefined);
+  // await files.reduce(async (memo, file) => {
+  //   await memo;
+  //   await loadBackends(file);
+  // }, undefined);
 
-
-  console.log('DONE DONE DONE');
+  console.log('processed all files');
   document.querySelector('#google-header').style.display = 'block';
   document.querySelector('#facebook-header').style.display = 'block';
 }
 
 async function loadBackends(file) {
   let newEvents = {};
-  await backends.reduce(async (bmemo, backend) => {
-    await bmemo;
+  return backends.map(async (backend) => {
+  // await backends.reduce(async (bmemo, backend) => {
+  //   await bmemo;
     const handler = findPath(file, backend.handlers);
     if (handler === undefined) {
       // not handled by this backend
@@ -43,10 +44,11 @@ async function loadBackends(file) {
     }
     console.log("loading " + file.path + " with " + key);
     const raw = await file.text();
-    const events = await handler.load(raw);
+    const events = handler.load(raw);
     eventCache[key] = events;
     Object.assign(newEvents, events);
     used.add(backend.name);
     console.log(events);
-  }, undefined);
+  // }, undefined);
+  });
 }
