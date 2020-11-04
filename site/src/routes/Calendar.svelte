@@ -6,13 +6,14 @@
 </style>
 
 <script>
-  import { onMount } from "svelte";
-  import { Calendar } from "@fullcalendar/core";
-  import dayGridPlugin from "@fullcalendar/daygrid";
-  import timeGridPlugin from "@fullcalendar/timegrid";
+  import { onMount } from 'svelte';
+  import { Calendar } from '@fullcalendar/core';
+  import dayGridPlugin from '@fullcalendar/daygrid';
+  import timeGridPlugin from '@fullcalendar/timegrid';
   import tippy from "tippy.js";
   import "tippy.js/dist/tippy.css";
   import { eventCache } from "../backends";
+  let cal;
 
   function getMostRecentDate(events) {
     if (events.length == 0) {
@@ -23,8 +24,8 @@
       .map((e) => new Date(e.start))
       .reduce((a,b) => Math.max(a,b))
     return new Date(mostRecent);
-  }
-
+  } 
+  
   function addCalendarData(calendar, name, eventsCollection) {
     const color = "#9b5de5"; //colorScheme[name];
     console.log("add to calendar");
@@ -44,25 +45,32 @@
     }
   }
 
-  onMount(async () => {
-    let today = new Date().toISOString().split("T")[0];
-    let elt = document.querySelector("#calendar");
+	onMount(async () => {
+    let today = new Date().toISOString().split('T')[0];
+    let elt = cal;//document.querySelector('#calendar');
     const calendar = new Calendar(elt, {
-      plugins: [dayGridPlugin, timeGridPlugin],
+      plugins: [
+        dayGridPlugin,
+        timeGridPlugin
+      ],
       aspectRatio: 2,
       eventDidMount: function (info) {
         tippy(info.el, {
           content: info.event.title,
         });
       },
-      scrollTime: "9:00AM",
-      initialView: "timeGridWeek",
+      scrollTime: '9:00AM',
+      initialView: 'timeGridWeek',
       initialDate: today,
       headerToolbar: {
-        left: "prev,next today",
-        center: "title",
-        right: "dayGridMonth,timeGridWeek,timeGridDay",
-      },
+        left: 'today prev,next',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek'
+      }, 
+      allDaySlot: false,
+      dayHeaderFormat: {
+        weekday: 'long'
+      }
     });
     calendar.render();
 
@@ -79,4 +87,6 @@
   });
 </script>
 
-<div id="calendar" />
+
+<h1 class='sr-only'>Calendar</h1>
+<div bind:this={cal} id='sakocal'></div>

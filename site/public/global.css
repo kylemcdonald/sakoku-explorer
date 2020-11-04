@@ -57,7 +57,7 @@ nav a, nav button {
 	font-style: italic;
 }
 
-.selected a, .selected {
+.active a, .active {
 	color: black;
 }
 
@@ -103,4 +103,66 @@ textarea {
   overflow: hidden;
   clip: rect(0,0,0,0);
   border: 0;
+}
+
+/* CALENDAR: needs to be global because it doesn't get applied by scoped svelte component since calendar is rendered after DOM loads */
+#sakocal .fc-button {
+	color: black;
+	background: none;
+	border-radius: 0;
+	border: none;
+	font-size: 20px;
+	font-style: italic;
+	text-transform: capitalize;
+	opacity: 1.0;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+}
+
+#sakocal .fc-toolbar-title {
+	font-size: 20px;
+}
+
+#sakocal .fc-header-toolbar {
+	margin-bottom: 1em;
+}
+
+#sakocal .fc-col-header {
+	border-bottom: none;
+}
+
+#sakocal .fc-col-header-cell-cushion,
+#sakocal .fc-scrollgrid-sync-inner,
+#sakocal .fc-timegrid-slot-label-cushion {
+	color: black;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+
+#sakocal .fc-scrollgrid-section-liquid td {
+	border: 2px solid black;
+}
+
+#sakocal .fc-col-header-cell {
+	border: none;
+}
+
+#sakocal .fc-scrollgrid-section-header td, #sakocal .fc-timegrid-axis, #sakocal .fc-scrollgrid {
+	border: none;
+}
+
+#sakocal .fc-dayGridMonth-button, #sakocal .fc-timeGridWeek-button {
+	color: #E5E5E5;
+}
+#sakocal .fc-button-active, #sakocal .fc-dayGridMonth-button:hover, #sakocal .fc-timeGridWeek-button:hover {
+	color: black;
+}
+
+#sakocal .fc-next-button, #sakocal .fc-prev-button, #sakocal .fc-button-group {
+	padding: 0;
+	margin: 0;
+}
+
+#sakocal .fc-day-today {
+	background: none;
 }
