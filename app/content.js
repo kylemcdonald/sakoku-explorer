@@ -2,10 +2,11 @@ const electron = require('electron');
 const facebook = require('./facebook');
 const google = require('./google');
 const copy = require('./copy.json');
+// can replace this with a cookie
 const computerId = require('node-machine-id').machineIdSync({original: true});
 
-// const endpoint = 'http://localhost:8080';
-const endpoint = 'https://sakoku.uc.r.appspot.com';
+const endpoint = 'http://localhost:8080';
+// const endpoint = 'https://sakoku.uc.r.appspot.com';
 const backends = [
     facebook,
     google
@@ -132,6 +133,7 @@ function setupCalendar() {
     calendar.render();
 }
 
+/*
 function prepareDataAwardsData() {
     let groupNumber = document.getElementById('group-number').value;
     let data = {};
@@ -154,6 +156,22 @@ function prepareDataAwardsData() {
     data = JSON.stringify(data);
     document.getElementById('data-awards-data').innerText = data;
 }
+*/
+
+function removeLongestItems(list, maxLength) {
+    const lengths = list.map(e=>e.length);
+    lengths.sort();
+    let sum = 0;
+    let threshold = lengths[lengths.length-1];
+    for (let i = 0; i < lengths.length; i++) {
+        sum += lengths[i];
+        if (sum > maxLength) {
+            threshold = lengths[i];
+            break;
+        }
+    }
+    return list.filter(e=>e.length<threshold);
+}
 
 function prepareSameData(inputFieldName, outputFieldName, outputElement) {
     let groupNumber = document.getElementById('group-number').value;
@@ -173,7 +191,10 @@ function prepareSameData(inputFieldName, outputFieldName, outputElement) {
         'id': computerId,
         'group': groupNumber
     };
-    data[outputFieldName] = [...items];
+    // remove longest items until we get to a reasonable output size
+    const maximumSize = 512 * 1024; // 512KB
+    const filteredItems = removeLongestItems([...items], maximumSize);
+    data[outputFieldName] = filteredItems.slice(0,30000);
     data = JSON.stringify(data);
     document.getElementById(outputElement).innerText = data;
 }
@@ -184,6 +205,10 @@ function prepareSameWebsitesData() {
 
 function prepareSameVideosData() {
     prepareSameData('video', 'videos', 'same-videos-data');
+}
+
+function prepareSameSearchesData() {
+    prepareSameData('search', 'searches', 'same-searches-data');
 }
 
 async function uploadData(name) {
@@ -223,13 +248,8 @@ holder.ondrop = (e) => {
 
 setupCalendar();
 setupComputerId();
-hideOverlay();
-loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/facebook-json');
+// hideOverlay();
+// loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/facebook-json');
 // loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout-jp');
 // loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout');
-
-// const parser = require('./google-parser');
-// const matches = parser.readFile('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout/My Activity/Search/MyActivity.html');
-// const matches = parser.readFile('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout-jp/マイ アクティビティ/検索/マイアクティビティ.html');
-// const search = parser.parseSearch(matches);
-// console.log(search);
+// loadFromDirectory('/Users/kyle/Desktop/ycam-downloaded-data/kyle/Takeout');

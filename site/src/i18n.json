@@ -5,14 +5,15 @@
       "description-1": "This app will guide you through the process of exploring the data collected by Facebook and Google. All of your data stays on your computer. None of your data is sent remotely without your explicit consent.",
       "description-2": "All of your data stays on your computer. None of your data is sent remotely without your explicit consent.",
       "about-alt": "folder icon"
-    }, "drop": {
-      "header": "PLEASE DROP YOUR DATA WITHIN THE DOTTED BOX DRAWN ABOVE.",
+    },
+    "drop": {
+      "header": "Please drop your data within the dotted box drawn above.",
       "description": "All of your data stays on your computer. None of your data is sent remotely without your explicit consent.",
-      "drop-alt": "floppy disk icon"
+      "floppy-alt": "floppy disk icon"
     },
     "overview": {
-      "eyes-alt": "eyes icon",
       "header": "Data Overview",
+      "eyes-alt": "eyes icon",
       "facebook-header": "Facebook",
       "facebook-0": "Off-Facebook Activity Total:",
       "facebook-1": "Search History Total:",
@@ -43,8 +44,7 @@
       "google-restrict-2": "uninstall Google apps from your phone",
       "google-restrict-3": "do not use Google to log in to services"
     },
-    "calendar": {
-    },
+    "calendar": {},
     "games": {
       "same-websites-header": "Same Websites",
       "same-websites-question": "What websites and apps has everyone used?",
@@ -62,14 +62,15 @@
       "description-1": "このアプリは、facebookやgoogleが収集したデータを探る過程を案内してくれます。",
       "description-2": "お客様のデータはすべてお客様のコンピュータに保存されます。お客様のデータは、お客様の明示的な同意なしにリモートで送信されることはありません。",
       "about-alt": "folder icon"
-    }, "drop": {
+    },
+    "drop": {
       "header": "あなたのデータをこの中に入れてください。上に描かれたドットボックス。",
       "description": "お客様のデータはすべてお客様のコンピュータに保存されます。お客様のデータは、お客様の明示的な同意なしにリモートで送信されることはありません。",
-      "drop-alt": "floppy disk icon"
+      "floppy-alt": "floppy disk icon"
     },
     "overview": {
-      "eyes-alt": "eyes icon",
       "header": "Data Overview",
+      "eyes-alt": "eyes icon",
       "facebook-header": "Facebook",
       "facebook-0": "Off-Facebook Activity Total:",
       "facebook-1": "Search History Total:",
