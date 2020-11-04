@@ -35,5 +35,5 @@
 
 </script>
 
-<h1>Calendar</h1>
+<h1 class='sr-only'>Calendar</h1>
 <div id='calendar'></div>
