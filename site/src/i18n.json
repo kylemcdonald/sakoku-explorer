@@ -46,7 +46,7 @@
         "youtubeWatchActivity": "YouTube watched",
         "youtubeSearchActivity": "YouTube searched"
       },
-      "google-restrict-header": "to restrict Google data collection:",
+      "google-restrict-header": "To restrict Google data collection:",
       "google-restrict-0": "use private browsing or Brave browser",
       "google-restrict-1": "change your Google privacy preference here",
       "google-restrict-2": "uninstall Google apps from your phone",

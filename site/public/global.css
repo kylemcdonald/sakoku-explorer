@@ -1,97 +1,100 @@
-html, body {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	font-family: 'Roboto';
-	font-weight: 900;
-	font-size: 2vw;
-	font-style: italic;
+html,
+body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto";
+  font-weight: 900;
+  font-size: 2vw;
+  font-style: italic;
 }
 
-a, button {
-	color: #E5E5E5;
-	text-decoration: none;
+a,
+button {
+  color: #e5e5e5;
+  text-decoration: none;
 }
 
-a:hover, button:hover {
-	color: black;
+a:hover,
+button:hover {
+  color: black;
 }
 
 button {
-	padding: 0;
-	border: none;
-	background: none;
-	cursor: pointer;
-	font-family: 'Roboto';
-	font-weight: 900;
-	font-size: 2vw;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: "Roboto";
+  font-weight: 900;
+  font-size: 2vw;
 }
 
 nav {
-	padding: 0.5em;
-	border-bottom: 2px solid black;
+  padding: 0.5em;
+  border-bottom: 2px solid black;
 }
 
 nav ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
 }
 
 nav li {
-	display: inline-block;
-	margin: 0;
-	padding: 0;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
 }
 
-nav a, .secondary-nav button {
-	margin-right: 1em;
+nav a,
+.secondary-nav button {
+  margin-right: 1em;
 }
 
-
-nav a, nav button {
-	text-transform: uppercase;
-	font-style: italic;
+nav a,
+nav button {
+  text-transform: uppercase;
+  font-style: italic;
 }
 
-.active a, .active {
-	color: black;
+.active a,
+.active {
+  color: black;
 }
 
 h1 {
-	text-transform: uppercase;
-	font-style: italic;
-	font-size: 2em;
-	margin-top: 0;
+  text-transform: uppercase;
+  font-style: italic;
+  font-size: 2em;
+  margin-top: 0;
 }
 
 h2 {
-	margin-top: 0;
-	margin-bottom: 0.5em;
+  margin-top: 0;
+  margin-bottom: 0.5em;
 }
 
 textarea {
-	border: 2px dotted black;
-	width: 45vw;
-	height: 15em;
+  border: 2px dotted black;
+  width: 45vw;
+  height: 15em;
 }
 
-
 .center-block {
-	width: 50vw;
-	margin: 0 auto;
-	text-align: center;
-	height: 100%;
-	margin-top: 5em; /* TEMP */
+  width: 50vw;
+  margin: 0 auto;
+  text-align: center;
+  height: 100%;
+  margin-top: 5em; /* TEMP */
 }
 
 .center-block-flex {
-
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .sr-only {
@@ -101,68 +104,79 @@ textarea {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   border: 0;
 }
 
 /* CALENDAR: needs to be global because it doesn't get applied by scoped svelte component since calendar is rendered after DOM loads */
 #sakocal .fc-button {
-	color: black;
-	background: none;
-	border-radius: 0;
-	border: none;
-	font-size: 20px;
-	font-style: italic;
-	text-transform: capitalize;
-	opacity: 1.0;
-	padding-top: 0.2em;
-	padding-bottom: 0.2em;
+  color: black;
+  background: none;
+  border-radius: 0;
+  border: none;
+  font-size: 20px;
+  font-style: italic;
+  text-transform: capitalize;
+  opacity: 1;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
 }
 
 #sakocal .fc-toolbar-title {
-	font-size: 20px;
+  font-size: 20px;
 }
 
 #sakocal .fc-header-toolbar {
-	margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 #sakocal .fc-col-header {
-	border-bottom: none;
+  border-bottom: none;
+}
+
+#sakocal .fc-event-title {
+  font-size: 0.5em;
 }
 
 #sakocal .fc-col-header-cell-cushion,
 #sakocal .fc-scrollgrid-sync-inner,
 #sakocal .fc-timegrid-slot-label-cushion {
-	color: black;
-	font-size: 20px;
-	text-transform: uppercase;
+  color: black;
+  font-size: 20px;
+  text-transform: uppercase;
 }
 
 #sakocal .fc-scrollgrid-section-liquid td {
-	border: 2px solid black;
+  border: 2px solid black;
 }
 
 #sakocal .fc-col-header-cell {
-	border: none;
+  border: none;
 }
 
-#sakocal .fc-scrollgrid-section-header td, #sakocal .fc-timegrid-axis, #sakocal .fc-scrollgrid {
-	border: none;
+#sakocal .fc-scrollgrid-section-header td,
+#sakocal .fc-timegrid-axis,
+#sakocal .fc-scrollgrid {
+  border: none;
 }
 
-#sakocal .fc-dayGridMonth-button, #sakocal .fc-timeGridWeek-button {
-	color: #E5E5E5;
+#sakocal .fc-dayGridMonth-button,
+#sakocal .fc-timeGridWeek-button {
+  color: #e5e5e5;
 }
-#sakocal .fc-button-active, #sakocal .fc-dayGridMonth-button:hover, #sakocal .fc-timeGridWeek-button:hover {
-	color: black;
+#sakocal .fc-button-active,
+#sakocal .fc-dayGridMonth-button:hover,
+#sakocal .fc-timeGridWeek-button:hover {
+  color: black;
 }
 
-#sakocal .fc-next-button, #sakocal .fc-prev-button, #sakocal .fc-button-group {
-	padding: 0;
-	margin: 0;
+#sakocal .fc-next-button,
+#sakocal .fc-prev-button,
+#sakocal .fc-button-group {
+  padding: 0;
+  margin: 0;
 }
 
 #sakocal .fc-day-today {
-	background: none;
+  background: none;
 }
