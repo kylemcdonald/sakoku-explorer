@@ -1,5 +1,4 @@
 <script>
-  import { slide } from 'svelte/transition';
   import Dropzone from "svelte-file-dropzone";
   import { _ } from "../i18n";
   import { used, loadFromFiles } from "../backends";
