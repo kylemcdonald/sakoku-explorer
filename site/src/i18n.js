@@ -7,6 +7,11 @@ import * as translations from './i18n.json'
 
 function getSubKey(dict, items) {
   if (items.length == 0) {
+    // perfect match
+    return dict;
+  }
+  if (typeof dict == 'string') {
+    // quit early
     return dict;
   }
   if (!Array.isArray(items)) {

@@ -62,7 +62,7 @@
       {#each Object.entries(eventCache) as [loader, eventCollection]}
         {#if loader.startsWith('google/')}
           {#each Object.entries(eventCollection) as [groupName, eventGroup]}
-            <li role="listitem">{$_(loader + '/' + groupName)}: {groupName.length}</li>
+            <li role="listitem">{$_('overview.' + loader + '.' + groupName)}: {eventGroup.length.toLocaleString()}</li>
           {/each}
         {/if}
       {/each}
@@ -88,7 +88,7 @@
       {#each Object.entries(eventCache) as [loader, eventCollection]}
         {#if loader.startsWith('facebook/')}
           {#each Object.entries(eventCollection) as [groupName, eventGroup]}
-            <li role="listitem">{$_(loader + '/' + groupName)}: {eventGroup.length.toLocaleString()}</li>
+            <li role="listitem">{$_('overview.' + loader + '.' + groupName)}: {eventGroup.length.toLocaleString()}</li>
           {/each}
         {/if}
       {/each}

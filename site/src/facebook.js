@@ -173,7 +173,7 @@ function loadFriends(raw) {
 module.exports.handlers = [
   {
     path: "/ads_and_businesses/your_off-facebook_activity.json",
-    name: "off-facebok",
+    name: "off-facebook",
     load: loadOffFacebookActivity,
   },
   {
