@@ -28,7 +28,7 @@ export async function loadFromFiles(files) {
 }
 
 async function loadBackends(file) {
-  let newEvents = {};
+  // let newEvents = {};
   return backends.map(async (backend) => {
   // await backends.reduce(async (bmemo, backend) => {
   //   await bmemo;
@@ -46,7 +46,7 @@ async function loadBackends(file) {
     const raw = await file.text();
     const events = handler.load(raw);
     eventCache[key] = events;
-    Object.assign(newEvents, events);
+    // Object.assign(newEvents, events);
     used.add(backend.name);
     console.log(events);
   // }, undefined);

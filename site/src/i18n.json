@@ -60,8 +60,13 @@
       "same-videos-header": "Same Videos",
       "same-videos-question": "What videos has everyone watched?",
       "same-videos-description": "Only the names will be sent to the server, not the videos. This is the data that will be sent.",
+      "same-searches-header": "Same Searches",
+      "same-searches-question": "What searches has everyone made?",
+      "same-searches-description": "Only the names will be sent to the server, not the videos. This is the data that will be sent.",
       "prepare-data": "Prepare Data",
-      "share-data": "Share Data"
+      "share-data": "Share Data",
+      "group": "Group",
+      "nickname": "Nickname"
     }
   },
   "jp": {
@@ -120,13 +125,18 @@
     "calendar": {},
     "games": {
       "same-websites-header": "Same Websites",
-      "same-websites-question": "What websites and apps has everyone used?",
+      "same-websites-question": "誰もが使用したウェブサイトやアプリは何ですか？",
       "same-websites-description": "Only the names will be sent to the server, not the pages. This is the data that will be sent.",
       "same-videos-header": "Same Videos",
-      "same-videos-question": "What videos has everyone watched?",
+      "same-videos-question": "誰もが見たビデオは何ですか？",
       "same-videos-description": "Only the names will be sent to the server, not the videos. This is the data that will be sent.",
-      "prepare-data": "Prepare Data",
-      "share-data": "Share Data"
+      "same-searches-header": "Same Searches",
+      "same-searches-question": "What searches has everyone made?",
+      "same-searches-description": "Only the names will be sent to the server, not the videos. This is the data that will be sent.",
+      "prepare-data": "データを準備する",
+      "share-data": "データを共有する",
+      "group": "グループ",
+      "nickname": "ニックネーム"
     }
   }
 }

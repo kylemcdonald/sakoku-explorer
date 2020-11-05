@@ -1,7 +1,6 @@
 <script>
   import { _ } from "../i18n";
   import { eventCache } from "../backends";
-  import { startsWith } from "svelte-routing/src/utils";
   window.eventCache = eventCache;
 </script>
 

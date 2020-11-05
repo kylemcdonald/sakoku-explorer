@@ -67,7 +67,7 @@
         on:drop={handleFilesSelect}
         accept=""
         containerStyles="border: 2px dotted black; background: white; margin-bottom: 1em; cursor: pointer;">
-        <p/> <!-- Google Facebook -->
+        <p/>
       </Dropzone>
       <h2 id="google-header">
         <img
