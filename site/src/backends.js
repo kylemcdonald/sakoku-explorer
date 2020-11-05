@@ -2,6 +2,10 @@ import * as google from "./google.js";
 import * as facebook from "./facebook.js";
 
 const backends = [google, facebook];
+let foundGoogle, foundFacebook;
+
+export const used = new Set();
+export const eventCache = {};
 
 function findPath(file, handlers) {
   const valid = handlers.filter((e) => file.path.endsWith(e.path));
@@ -10,8 +14,6 @@ function findPath(file, handlers) {
   }
 }
 
-export const used = new Set();
-export const eventCache = {};
 
 export async function loadFromFiles(files) {
 
@@ -21,10 +23,9 @@ export async function loadFromFiles(files) {
 
   }, undefined);
 
-
   console.log('DONE DONE DONE');
-  document.querySelector('#google-header').style.display = 'block';
-  document.querySelector('#facebook-header').style.display = 'block';
+  if (foundGoogle) document.querySelector('#google-header').style.display = 'block';
+  if (foundFacebook) document.querySelector('#facebook-header').style.display = 'block';
 }
 
 async function loadBackends(file) {
@@ -48,5 +49,7 @@ async function loadBackends(file) {
     Object.assign(newEvents, events);
     used.add(backend.name);
     console.log(events);
+    if (backend.name === 'google') foundGoogle = true;
+    else if (backend.name === 'facebook') foundFacebook = true;
   }, undefined);
 }
