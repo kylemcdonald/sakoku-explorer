@@ -3,9 +3,16 @@
   import { _ } from "../i18n";
   import { used, loadFromFiles } from "../backends";
 
+  function warnOnLeave() {
+    window.onbeforeunload = function () {
+      return true;
+    };
+  }
+
   function handleFilesSelect(e) {
     const { acceptedFiles } = e.detail;
     loadFromFiles(acceptedFiles);
+    warnOnLeave();
   }
 </script>
 
@@ -67,7 +74,7 @@
         on:drop={handleFilesSelect}
         accept=""
         containerStyles="border: 2px dotted black; background: white; margin-bottom: 1em; cursor: pointer;">
-        <p/>
+        <p />
       </Dropzone>
       <h2 id="google-header">
         <img
@@ -82,8 +89,8 @@
           class="icon" />{$_('overview.facebook-header')}
       </h2>
     </div>
-    <img id='arrow' src='../assets/arrow.svg' alt=''>
-    <div id='drop-text'>
+    <img id="arrow" src="../assets/arrow.svg" alt="" />
+    <div id="drop-text">
       <h1>{$_('drop.header')}</h1>
       <p>{$_('drop.description')}</p>
     </div>
