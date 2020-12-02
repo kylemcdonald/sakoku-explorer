@@ -11,6 +11,20 @@
 	<link href='https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,900;1,900&display=swap' rel='stylesheet'>
 	<link rel='stylesheet' href='/global.css'>
 	<link rel='stylesheet' href='/build/bundle.css'>
+	<style>
+		/*
+		phase 1: both display: none
+		phase 2: both display: default
+		phase 3: /calendar display: default, /games display: none
+		*/
+		a[href="/calendar"] {
+			display: default;
+		}
+
+		a[href="/games"] {
+			display: default;
+		}
+	</style>
 
 	<script defer src='/build/bundle.js'></script>
 </head>
