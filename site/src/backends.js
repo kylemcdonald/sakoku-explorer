@@ -7,8 +7,12 @@ let foundGoogle, foundFacebook;
 export const used = new Set();
 export const eventCache = {};
 
+function normalizedEndsWith(a, b) {
+  return a.normalize().endsWith(b.normalize());
+}
+
 function findPath(file, handlers) {
-  const valid = handlers.filter((e) => file.path.endsWith(e.path));
+  const valid = handlers.filter((e) => normalizedEndsWith(file.path, e.path));
   if (valid.length > 0) {
     return valid[0];
   }
