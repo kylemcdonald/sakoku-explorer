@@ -53,10 +53,16 @@
     const calendar = new Calendar(elt, {
       plugins: [dayGridPlugin, timeGridPlugin],
       aspectRatio: 2,
-      eventDidMount: function (info) {
+      eventDidMount: (info) => {
         tippy(info.el, {
           content: info.event.title,
         });
+      },
+      eventClick: (info) => {
+        info.jsEvent.preventDefault();
+        if (info.event.url) {
+          window.open(info.event.url);
+        }
       },
       scrollTime: "9:00AM",
       initialView: "timeGridWeek",
