@@ -6,6 +6,7 @@
   import Overview from "./routes/Overview.svelte";
   import Calendar from "./routes/Calendar.svelte";
   import Games from "./routes/Games.svelte";
+  import Admin from "./routes/Admin.svelte";
 
   import { _, locale } from "./i18n.js";
   import NavLink from "./components/NavLink.svelte";
@@ -53,6 +54,9 @@
     </Route>
     <Route path="games">
       <Games />
+    </Route>
+    <Route path="admin">
+      <Admin />
     </Route>
   </section>
 </Router>

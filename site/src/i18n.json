@@ -67,6 +67,10 @@
       "share-data": "Share Data",
       "group": "Group",
       "nickname": "Nickname"
+    },
+    "admin": {
+      "update": "Update",
+      "no-results": "No results"
     }
   },
   "jp": {
@@ -137,6 +141,10 @@
       "share-data": "データを共有する",
       "group": "グループ",
       "nickname": "ニックネーム"
+    },
+    "admin": {
+      "update": "アップデート",
+      "no-results": "結果がありません"
     }
   }
 }
