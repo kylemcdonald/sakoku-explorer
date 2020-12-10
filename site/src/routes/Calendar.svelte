@@ -20,19 +20,33 @@
   }
 
   const colorScheme = {
-    facebook: "#9b5de5", // light purple
-    google: "#f15bb5", // light pink
-    //  - Yellow #fee440
-    //  - Light blue #00bbf9
-    //  - Cyan #00f5d4
+    google: {
+      adsActivity: "#ef6b88",
+      youtubeSearchActivity: "#c2ef63",
+      youtubeWatchActivity: "#be51ed",
+      imageSearchActivity: "#70d9ea",
+      imageViewActivity: "#63efa2",
+      mapsActivity: "#5f9bee",
+      searchActivity: "#e156e3",
+      visitedActivity: "#48dd9d",
+    },
+    facebook: {
+      comments: "#ef6b88",
+      visited: "#c2ef63",
+      viewed: "#be51ed",
+      searchHistory: "#70d9ea",
+      offFacebookActivity: "#63efa2",
+      notifications: "#5f9bee",
+      likesAndReactions: "#e156e3",
+      friends: "#48dd9d",
+    },
   };
 
   function addCalendarData(calendar, loader, eventsCollection) {
     const backendName = loader.split("/")[0];
-    const color = colorScheme[backendName];
-    console.log("add to calendar");
     for (const [key, events] of Object.entries(eventsCollection)) {
-      const id = name + "." + key;
+      const id = backendName + "." + key;
+      const color = colorScheme[backendName][key];
       const existingEventSource = calendar.getEventSourceById(id);
       if (existingEventSource != null) {
         // remove any existing event source with this same id
@@ -56,6 +70,7 @@
       eventDidMount: (info) => {
         tippy(info.el, {
           content: info.event.title,
+          duration: 0
         });
       },
       eventClick: (info) => {
@@ -64,6 +79,7 @@
           window.open(info.event.url);
         }
       },
+      defaultTimedEventDuration: "00:30",
       scrollTime: "9:00AM",
       initialView: "timeGridWeek",
       initialDate: today,
@@ -79,16 +95,17 @@
     });
     calendar.render();
 
-    console.log(eventCache);
-    for (const [loader, eventCollection] of Object.entries(eventCache)) {
-      addCalendarData(calendar, loader, eventCollection);
-    }
+    calendar.batchRendering(() => {
+      for (const [loader, eventCollection] of Object.entries(eventCache)) {
+        addCalendarData(calendar, loader, eventCollection);
+      }
 
-    // jump to most recent date
-    const mostRecent = getMostRecentDate(calendar.getEvents());
-    if (mostRecent !== undefined) {
-      calendar.gotoDate(mostRecent);
-    }
+      // jump to most recent date
+      const mostRecent = getMostRecentDate(calendar.getEvents());
+      if (mostRecent !== undefined) {
+        calendar.gotoDate(mostRecent);
+      }
+    });
   });
 </script>
 
