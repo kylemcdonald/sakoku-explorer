@@ -59,8 +59,8 @@
   async function shareData() {
     const response = fetch(endpoint + "/submit/same-" + type, {
       method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
+      mode: "cors",
+      headers: { "content-type": "application/json;charset=UTF-8" },
       body: preparedData,
     });
     console.log(await response);

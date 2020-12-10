@@ -1,4 +1,5 @@
 from flask import Flask, request, abort, jsonify, abort
+from flask_cors import CORS
 from werkzeug.exceptions import HTTPException
 from google.cloud import firestore
 from collections import defaultdict, Counter
@@ -9,10 +10,12 @@ client = firestore.Client()
 valid_collections = (
     'data-awards',
     'same-websites',
-    'same-videos'
+    'same-videos',
+    'same-searches'
 )
 
 app = Flask(__name__)
+CORS(app)
 
 def argmin(x):
     return min(range(len(x)), key=lambda e: x[e])
@@ -82,17 +85,24 @@ def summary_same_websites():
 def summary_same_videos():
     return get_same('same-videos', 'videos')
 
+@app.route('/summary/same-searches')
+def summary_same_searches():
+    return get_same('same-searches', 'searches')
+
 @app.route('/submit/<collection>', methods=['POST'])
 def submit(collection):
+    response = {}
     if collection not in valid_collections:
         abort(500, 'Invalid collection')
     try:
         data = request.json
         computer_id = data['id']
         client.collection(collection).document(computer_id).set(data)
+        response['status'] = 'success'
     except Exception as e:
-        print(e)
-    return jsonify({'status': 'success'})
+        response['status'] = 'error'
+        response['message'] = str(e)
+    return jsonify(response)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
