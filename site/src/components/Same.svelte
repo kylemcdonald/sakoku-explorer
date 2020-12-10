@@ -88,6 +88,12 @@
     color: black;
     margin-left: 5em;
   }
+  
+  .data-button:disabled {
+    color:#e5e5e5;
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
 
   .data-button:first-of-type {
     margin: 0;
@@ -116,9 +122,11 @@
   <textarea bind:value={preparedData} />
   <button
     class="data-button"
+    disabled={nickname === ""}
     on:click={prepareSameData}>{$_('games.prepare-data')}</button>
   <button
     class="data-button"
+    disabled={nickname === ""}
     on:click={shareData}>{$_('games.share-data')}</button>
   <p>
     <span class="emphasis"> {$_('games.same-' + type + '-question')} </span>
