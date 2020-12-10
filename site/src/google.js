@@ -25,6 +25,13 @@ function loadActivityJson(data) {
   return pieces;
 }
 
+function extractSearchFunc(lang) {
+  return {
+    en: (e) => e.slice(13), // remove "Searched for"
+    jp: (e) => e.slice(2,-9) // remove "「 " and " 」を検索しました"
+  }[lang];
+}
+
 // need a more comprehensive solution that is still fast
 // function decodeHtmlEntities(input) {
 //   input = input
@@ -34,8 +41,8 @@ function loadActivityJson(data) {
 //   return input;
 // }
 
-const visitedUrlPrefixRe = /^.+url\?q\\u003d/;
-const visitedUrlPostfixRe = /\\u0026usg\\u003d.+$/;
+const visitedUrlPrefixRe = /^.+url\?q=/;
+const visitedUrlPostfixRe = /&usg=.+$/;
 function extractUrlFromVisited(url) {
   url = url.replace(visitedUrlPrefixRe, "");
   url = url.replace(visitedUrlPostfixRe, "");
@@ -51,14 +58,16 @@ function loadSearchActivityJson(raw, lang) {
     en: (e) => e.title.startsWith("Visited"),
     jp: (e) => e.title.endsWith("にアクセスしました"),
   }[lang];
+  const extractSearch = extractSearchFunc(lang);
 
   let activity = loadActivityJson(raw); //.filter((e) => e.links.length);
 
   return {
     searchActivity: activity.filter(searchFilter).map((e) => {
+      const search = extractSearch(e.title);
       return {
         title: e.title,
-        search: e.title,
+        search: search,
         url: e.url,
         start: e.start,
       };
@@ -68,8 +77,8 @@ function loadSearchActivityJson(raw, lang) {
       const domain = extractDomain(url);
       return {
         title: e.title,
-        url: e.url,
-        site: e.domain,
+        url: url,
+        site: domain,
         start: e.start,
       };
     }),
@@ -87,14 +96,16 @@ function loadYouTubeActivityJson(raw, lang) {
     en: (e) => e.title.startsWith("Watched"),
     jp: (e) => e.title.endsWith("を視聴しました"),
   }[lang];
+  const extractSearch = extractSearchFunc(lang);
 
   const videoIdRe = /v=(.+)/;
 
   return {
     youtubeSearchActivity: activity.filter(searchFilter).map((e) => {
+      const search = extractSearch(e.title);
       return {
         title: e.title,
-        search: e.title,
+        search: search,
         url: e.url,
         start: e.start,
       };
@@ -122,12 +133,14 @@ function loadImageSearchActivityJson(raw, lang) {
     en: (e) => e.title.startsWith("Viewed"),
     jp: (e) => e.title.endsWith("画像を表示"),
   }[lang];
+  const extractSearch = extractSearchFunc(lang);
 
   return {
     imageSearchActivity: activity.filter(searchFilter).map((e) => {
+      const search = extractSearch(e.title);
       return {
         title: e.title,
-        search: e.title, // todo: remove language-specific wrapping
+        search: search,
         url: e.url,
         start: e.start,
       };
