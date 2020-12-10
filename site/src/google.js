@@ -255,4 +255,3 @@ module.exports.handlers = [
     load: wrap(loadMapsActivityHtml, "jp"),
   },
 ];
-
