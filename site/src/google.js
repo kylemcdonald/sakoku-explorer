@@ -3,7 +3,6 @@ module.exports = {
 };
 
 function parseDatetime(datetime) {
-  datetime = datetime.replace("JST", "UTC+9");
   return new Date(Date.parse(datetime)).toISOString();
 }
 
@@ -13,113 +12,98 @@ function extractDomain(url) {
   return domain;
 }
 
-// language-agnostic "my activity" loader
-// ignores the "products" and "locations" section
-function loadActivityHtml(data) {
-  const parts = data.split("outer-cell");
-  const titleRe = /title">(.+?)<br/s;
-  const bodyRe = /body-1">(.+?)<\/div/s;
-  const linkRe = /<a href="(?<url>.+?)">(?<text>.+?)<\/a>/gs;
-  const datetimeRe = />([^<]+)$/;
-  const pieces = parts.slice(1).map((e) => {
-    const pieces = e.split("<div");
-    const body = pieces[3].match(bodyRe)[1];
+const datetimeRe = />([^<]+)$/;
+function loadActivityJson(data) {
+  const parts = JSON.parse(data);
+  const pieces = parts.map((e) => {
     return {
-      body: body,
-      title: pieces[2].match(titleRe)[1],
-      links: [...body.matchAll(linkRe)].map((e) => e.groups),
-      start: parseDatetime(body.match(datetimeRe)[1]),
+      title: e.title,
+      url: e.titleUrl,
+      start: parseDatetime(e.time),
     };
   });
   return pieces;
 }
 
 // need a more comprehensive solution that is still fast
-function decodeHtmlEntities(input) {
-  input = input
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&amp;/g, "&");
-  return input;
-}
+// function decodeHtmlEntities(input) {
+//   input = input
+//     .replace(/&quot;/g, '"')
+//     .replace(/&#39;/g, "'")
+//     .replace(/&amp;/g, "&");
+//   return input;
+// }
 
-const visitedUrlPrefixRe = /^.+url\?q=/;
-const visitedUrlPostfixRe = /&amp;usg=.+$/;
+const visitedUrlPrefixRe = /^.+url\?q\\u003d/;
+const visitedUrlPostfixRe = /\\u0026usg\\u003d.+$/;
 function extractUrlFromVisited(url) {
   url = url.replace(visitedUrlPrefixRe, "");
   url = url.replace(visitedUrlPostfixRe, "");
   return url;
 }
 
-function loadSearchActivityHtml(raw, lang) {
+function loadSearchActivityJson(raw, lang) {
   const searchFilter = {
-    en: (e) => e.body.startsWith("Searched"),
-    jp: (e) => e.body.includes("を検索しました"),
+    en: (e) => e.title.startsWith("Searched"),
+    jp: (e) => e.title.endsWith("を検索しました"),
   }[lang];
   const visitedFilter = {
-    en: (e) => e.body.startsWith("Visited"),
-    jp: (e) => e.body.includes("にアクセスしました"),
+    en: (e) => e.title.startsWith("Visited"),
+    jp: (e) => e.title.endsWith("にアクセスしました"),
   }[lang];
 
-  let activity = loadActivityHtml(raw).filter((e) => e.links.length);
+  let activity = loadActivityJson(raw); //.filter((e) => e.links.length);
 
   return {
     searchActivity: activity.filter(searchFilter).map((e) => {
-      const title = decodeHtmlEntities(e.links[0].text);
       return {
-        title: title,
-        search: title,
-        url: e.links[0].url,
+        title: e.title,
+        search: e.title,
+        url: e.url,
         start: e.start,
       };
     }),
     visitedActivity: activity.filter(visitedFilter).map((e) => {
-      const url = extractUrlFromVisited(e.links[0].url);
+      const url = extractUrlFromVisited(e.url);
       const domain = extractDomain(url);
-      let title = decodeHtmlEntities(e.links[0].text);
-      if (title == url) {
-        title = domain;
-      }
       return {
-        title: title,
-        url: url,
-        site: domain,
+        title: e.title,
+        url: e.url,
+        site: e.domain,
         start: e.start,
       };
     }),
   };
 }
 
-function loadYouTubeActivityHtml(raw, lang) {
-  const activity = loadActivityHtml(raw).filter((e) => e.links.length);
+function loadYouTubeActivityJson(raw, lang) {
+  const activity = loadActivityJson(raw).filter((e) => e.url);
 
   const searchFilter = {
-    en: (e) => e.body.startsWith("Searched"),
-    jp: (e) => e.body.includes("を検索しました"),
+    en: (e) => e.title.startsWith("Searched"),
+    jp: (e) => e.title.endsWith("を検索しました"),
   }[lang];
   const watchFilter = {
-    en: (e) => e.body.startsWith("Watched"),
-    jp: (e) => e.body.includes("を視聴しました"),
+    en: (e) => e.title.startsWith("Watched"),
+    jp: (e) => e.title.endsWith("を視聴しました"),
   }[lang];
 
   const videoIdRe = /v=(.+)/;
 
   return {
     youtubeSearchActivity: activity.filter(searchFilter).map((e) => {
-      const title = decodeHtmlEntities(e.links[0].text);
       return {
-        title: title,
-        search: title,
-        url: e.links[0].url,
+        title: e.title,
+        search: e.title,
+        url: e.url,
         start: e.start,
       };
     }),
     youtubeWatchActivity: activity.filter(watchFilter).map((e) => {
-      const url = e.links[0].url;
-      const videoId = url.match(videoIdRe)[1];
+      const videoId = e.url.match(videoIdRe)[1];
       return {
-        title: decodeHtmlEntities(e.links[0].text),
-        url: url,
+        title: e.title,
+        url: e.url,
         video: videoId,
         start: e.start,
       };
@@ -127,44 +111,43 @@ function loadYouTubeActivityHtml(raw, lang) {
   };
 }
 
-function loadImageSearchActivityHtml(raw, lang) {
-  const activity = loadActivityHtml(raw).filter((e) => e.links.length);
+function loadImageSearchActivityJson(raw, lang) {
+  const activity = loadActivityJson(raw); //.filter((e) => e.links.length);
 
   const searchFilter = {
-    en: (e) => e.body.startsWith("Searched"),
-    jp: (e) => e.body.includes("を検索しました"),
+    en: (e) => e.title.startsWith("Searched"),
+    jp: (e) => e.title.endsWith("を検索しました"),
   }[lang];
   const viewFilter = {
-    en: (e) => e.body.startsWith("Viewed"),
-    jp: (e) => e.body.includes("画像を表示"),
+    en: (e) => e.title.startsWith("Viewed"),
+    jp: (e) => e.title.endsWith("画像を表示"),
   }[lang];
 
   return {
     imageSearchActivity: activity.filter(searchFilter).map((e) => {
-      const title = decodeHtmlEntities(e.links[0].text);
       return {
-        title: title,
-        search: title,
-        url: e.links[0].url,
+        title: e.title,
+        search: e.title, // todo: remove language-specific wrapping
+        url: e.url,
         start: e.start,
       };
     }),
     imageViewActivity: activity.filter(viewFilter).map((e) => {
       return {
-        title: decodeHtmlEntities(e.links[0].text),
-        url: extractUrlFromVisited(e.links[0].url),
+        title: e.title,
+        url: e.url,
         start: e.start,
       };
     }),
   };
 }
 
-function loadAdsActivityHtml(raw, lang) {
-  const activity = loadActivityHtml(raw).filter((e) => e.links.length);
+function loadAdsActivityJson(raw, lang) {
+  const activity = loadActivityJson(raw); //.filter((e) => e.links.length);
 
   return {
     adsActivity: activity.map((e) => {
-      const url = extractUrlFromVisited(e.links[0].url);
+      const url = extractUrlFromVisited(e.url);
       const domain = extractDomain(url);
       return {
         title: domain,
@@ -176,21 +159,21 @@ function loadAdsActivityHtml(raw, lang) {
   };
 }
 
-function loadMapsActivityHtml(raw, lang) {
-  const activity = loadActivityHtml(raw); // do not filter no links
+function loadMapsActivityJson(raw, lang) {
+  const activity = loadActivityJson(raw); // do not filter no links
 
   return {
     mapsActivity: activity.map((e) => {
       // "Used maps" with no other info
-      if (e.links.length == 0) {
-        return {
-          title: "Maps",
-          start: e.start,
-        };
-      }
+      // if (e.links.length == 0) {
+      //   return {
+      //     title: "Maps",
+      //     start: e.start,
+      //   };
+      // }
       return {
-        title: decodeHtmlEntities(e.links[0].text),
-        url: e.links[0].url,
+        title: e.title,
+        url: e.url,
         start: e.start,
       };
     }),
@@ -205,53 +188,53 @@ function wrap(func, lang) {
 
 module.exports.handlers = [
   {
-    path: "/Search/MyActivity.html",
+    path: "/Search/MyActivity.json",
     name: "search",
-    load: wrap(loadSearchActivityHtml, "en"),
+    load: wrap(loadSearchActivityJson, "en"),
   },
   {
-    path: "/検索/マイアクティビティ.html",
+    path: "/検索/マイアクティビティ.json",
     name: "search",
-    load: wrap(loadSearchActivityHtml, "jp"),
+    load: wrap(loadSearchActivityJson, "jp"),
   },
   {
-    path: "/YouTube/MyActivity.html",
+    path: "/YouTube/MyActivity.json",
     name: "youtube",
-    load: wrap(loadYouTubeActivityHtml, "en"),
+    load: wrap(loadYouTubeActivityJson, "en"),
   },
   {
-    path: "/YouTube/マイアクティビティ.html",
+    path: "/YouTube/マイアクティビティ.json",
     name: "youtube",
-    load: wrap(loadYouTubeActivityHtml, "jp"),
+    load: wrap(loadYouTubeActivityJson, "jp"),
   },
   {
-    path: "/Image Search/MyActivity.html",
+    path: "/Image Search/MyActivity.json",
     name: "image-search",
-    load: wrap(loadImageSearchActivityHtml, "en"),
+    load: wrap(loadImageSearchActivityJson, "en"),
   },
   {
-    path: "/画像検索/マイアクティビティ.html",
+    path: "/画像検索/マイアクティビティ.json",
     name: "image-search",
-    load: wrap(loadImageSearchActivityHtml, "jp"),
+    load: wrap(loadImageSearchActivityJson, "jp"),
   },
   {
-    path: "/Ads/MyActivity.html",
+    path: "/Ads/MyActivity.json",
     name: "ads",
-    load: wrap(loadAdsActivityHtml, "en"),
+    load: wrap(loadAdsActivityJson, "en"),
   },
   {
-    path: "/Ads/マイアクティビティ.html",
+    path: "/Ads/マイアクティビティ.json",
     name: "ads",
-    load: wrap(loadAdsActivityHtml, "jp"),
+    load: wrap(loadAdsActivityJson, "jp"),
   },
   {
-    path: "/Maps/MyActivity.html",
+    path: "/Maps/MyActivity.json",
     name: "maps",
-    load: wrap(loadMapsActivityHtml, "en"),
+    load: wrap(loadMapsActivityJson, "en"),
   },
   {
-    path: "/マップ/マイアクティビティ.html",
+    path: "/マップ/マイアクティビティ.json",
     name: "maps",
-    load: wrap(loadMapsActivityHtml, "jp"),
+    load: wrap(loadMapsActivityJson, "jp"),
   },
 ];
