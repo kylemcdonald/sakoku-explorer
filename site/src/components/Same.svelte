@@ -7,7 +7,7 @@
 
   const endpoint = "https://sakoku.uc.r.appspot.com";
 
-  let groupNumber = "1";
+  let groupNumber = 1;
   let nickname = "";
   let preparedData = "";
 
@@ -47,12 +47,12 @@
     }
     let data = {
       id: nickname,
-      group: groupNumber,
+      group: groupNumber
     };
     // remove longest items until we get to a reasonable output size
     const maximumSize = 512 * 1024; // 512KB
     const filteredItems = removeLongestItems([...items], maximumSize);
-    data[type] = filteredItems.slice(0, 30000);
+    data[type] = filteredItems.slice(0, 10000); // only use first 10k results
     preparedData = JSON.stringify(data);
   }
 

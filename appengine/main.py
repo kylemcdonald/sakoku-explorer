@@ -59,7 +59,8 @@ def summary_data_awards():
     output += f' max {computer_ids[min_i]} {counts[max_i]}\n'
     return output
 
-def get_same(collection_name, field_name):
+def get_same(collection_name, field_name, group):
+    group = int(group)
     max_results = 10
     min_common = 1
     if 'max_results' in request.args:
@@ -67,7 +68,7 @@ def get_same(collection_name, field_name):
     if 'min_common' in request.args:
         min_common = int(request.args.get('min_common'))
     results = []
-    for doc in client.collection(collection_name).get():
+    for doc in client.collection(collection_name).where("group", "==", group).stream():
         data = doc.to_dict()
         results.extend(data[field_name])
     output = ''
@@ -77,17 +78,17 @@ def get_same(collection_name, field_name):
             output += f'{count} {site}\n'
     return output
 
-@app.route('/summary/same-websites')
-def summary_same_websites():
-    return get_same('same-websites', 'sites')
+@app.route('/summary/same-websites/<group>')
+def summary_same_websites(group):
+    return get_same('same-websites', 'websites', group)
 
-@app.route('/summary/same-videos')
-def summary_same_videos():
-    return get_same('same-videos', 'videos')
+@app.route('/summary/same-videos/<group>')
+def summary_same_videos(group):
+    return get_same('same-videos', 'videos', group)
 
-@app.route('/summary/same-searches')
-def summary_same_searches():
-    return get_same('same-searches', 'searches')
+@app.route('/summary/same-searches/<group>')
+def summary_same_searches(group):
+    return get_same('same-searches', 'searches', group)
 
 @app.route('/submit/<collection>', methods=['POST'])
 def submit(collection):
