@@ -2,6 +2,8 @@ module.exports = {
   name: "facebook",
 };
 
+const utf8 = require('utf8');
+
 // let appInfo = { };
 // async function getAppInfo(appId) {
 //     if (!(appId in appInfo)) {
@@ -12,8 +14,7 @@ module.exports = {
 // }
 
 function fixFacebookEncoding(data) {
-  // return iconv.decode(iconv.encode(data, 'latin1'), 'utf-8');
-  return data;
+  return utf8.decode(data);
 }
 
 function loadOffFacebookActivity(raw) {
