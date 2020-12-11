@@ -1,6 +1,7 @@
 <script>
   import { _ } from "../i18n.js";
 
+  let key = "";
   let groupNumber = 1;
   let sameWebsites = [];
   let sameVideos = [];
@@ -10,7 +11,7 @@
 
   async function getSame(source) {
     const response = await fetch(
-      endpoint + "/summary/same-" + source + "/" + groupNumber,
+      endpoint + "/summary/same-" + source + "/" + groupNumber + "?key=" + key,
       {
         method: "GET",
         mode: "cors",
@@ -82,6 +83,7 @@
 </style>
 
 <div style="margin: 1em">
+  <input bind:value={key} style="width: 4em" type="password" />
   <input bind:value={groupNumber} style="width: 2em" type="number" />
   <button class="data-button" on:click={update}>{$_('admin.update')}</button>
 </div>
@@ -126,7 +128,11 @@
       {#if sameVideos.length}
         {#each sameVideos as { count, content }, i}
           <li>
-            <a target="_blank" href="https://www.youtube.com/watch?v={content}">{content} ({count}) </a>
+            <a
+              target="_blank"
+              href="https://www.youtube.com/watch?v={content}">{content}
+              ({count})
+            </a>
             <iframe
               title="YouTube Embed"
               frameborder="0"
