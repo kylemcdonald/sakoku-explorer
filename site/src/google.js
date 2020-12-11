@@ -6,9 +6,21 @@ function parseDatetime(datetime) {
   return new Date(Date.parse(datetime)).toISOString();
 }
 
+// this is not a simple task, but we need something fast
 function extractDomain(url) {
   const hostname = url.match("^(?:https?://)?(?<hostname>[^:/\n?%]+)", "i");
-  const domain = hostname.groups.hostname.split(".").slice(-2).join(".");
+  const parts = hostname.groups.hostname.split(".");
+  const domain = parts.slice(-2).join(".");
+  if (
+    parts.length > 2 &&
+    (domain.startsWith("co.") ||
+      domain.startsWith("com.") ||
+      domain.startsWith("edu.") ||
+      domain.startsWith("org.") ||
+      ["ne.jp", "or.jp", "go.jp"].includes(domain))
+  ) {
+    return parts.slice(-3).join(".");
+  }
   return domain;
 }
 
@@ -28,7 +40,7 @@ function loadActivityJson(data) {
 function extractSearchFunc(lang) {
   return {
     en: (e) => e.slice(13), // remove "Searched for"
-    jp: (e) => e.slice(2,-9) // remove "「 " and " 」を検索しました"
+    jp: (e) => e.slice(2, -9), // remove "「 " and " 」を検索しました"
   }[lang];
 }
 
