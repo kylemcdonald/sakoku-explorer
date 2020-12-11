@@ -93,7 +93,7 @@
     <ul>
       {#if sameWebsites.length}
         {#each sameWebsites as { count, content }, i}
-          <li><a target="_blank" href={content}>{content} ({count}) </a></li>
+          <li><a target="_blank" href="//{content}">{content} ({count})</a></li>
         {/each}
       {:else}
         <li>{$_('admin.no-results')}</li>
@@ -109,7 +109,7 @@
           <li>
             <a
               target="_blank"
-              href={'https://www.google.com/search?q=' + content}>{content}
+              href="https://www.google.com/search?q={content}">{content}
               ({count})
             </a>
           </li>
@@ -126,7 +126,7 @@
       {#if sameVideos.length}
         {#each sameVideos as { count, content }, i}
           <li>
-            <a target="_blank" href={content}>{content} ({count}) </a>
+            <a target="_blank" href="https://www.youtube.com/watch?v={content}">{content} ({count}) </a>
             <iframe
               title="YouTube Embed"
               frameborder="0"
