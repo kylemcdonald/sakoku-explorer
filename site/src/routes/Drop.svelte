@@ -92,7 +92,9 @@
     <img id="arrow" src="../assets/arrow.svg" alt="" />
     <div id="drop-text">
       <h1>{$_('drop.header')}</h1>
-      <p>{$_('drop.description')}</p>
+      {#each $_('drop.descriptions') as text}
+        <p>{@html text}</p>
+      {/each}
     </div>
   </div>
 </div>

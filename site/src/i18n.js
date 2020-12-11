@@ -5,6 +5,17 @@ const fallback = "en";
 export const locale = writable("en");
 import * as translations from "./i18n.json";
 
+// convert markdown links to <a> tags
+function linkify(text) {
+  if (Array.isArray(text)) {
+    return text.map(linkify);
+  }
+  return text.replace(
+    /\[([^\]]*?)\]\(([^\)]*?)\)/,
+    '<a target="_blank" href="$2">$1</a>'
+  );
+}
+
 function getSubKey(dict, items) {
   if (items.length == 0) {
     // perfect match
@@ -25,7 +36,7 @@ function getSubKey(dict, items) {
 export const _ = derived(locale, ($locale) => (word) => {
   const base = getSubKey(translations[$locale], word);
   if (base !== undefined) {
-    return base;
+    return linkify(base);
   }
   const alternative = getSubKey(translations[fallback], word);
   if (alternative === undefined) {

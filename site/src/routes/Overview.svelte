@@ -61,7 +61,10 @@
       {#each Object.entries(eventCache) as [loader, eventCollection]}
         {#if loader.startsWith('google/')}
           {#each Object.entries(eventCollection) as [groupName, eventGroup]}
-            <li role="listitem">{$_('overview.' + loader + '.' + groupName)}: {eventGroup.length.toLocaleString()}</li>
+            <li role="listitem">
+              {$_('overview.' + loader + '.' + groupName)}:
+              {eventGroup.length.toLocaleString()}
+            </li>
           {/each}
         {/if}
       {/each}
@@ -69,10 +72,11 @@
 
     <h3 id="google-restrict">{$_('overview.google-restrict-header')}</h3>
     <ul aria-labelledby="google-restrict" role="list" class="restrict">
-      <li role="listitem">- {$_('overview.google-restrict-0')}</li>
-      <li role="listitem">- {$_('overview.google-restrict-1')}</li>
-      <li role="listitem">- {$_('overview.google-restrict-2')}</li>
-      <li role="listitem">- {$_('overview.google-restrict-3')}</li>
+      {#each $_('overview.google-restrict') as text}
+        <li role="listitem">
+          - {@html text}
+        </li>
+      {/each}
     </ul>
   </div>
 
@@ -87,7 +91,10 @@
       {#each Object.entries(eventCache) as [loader, eventCollection]}
         {#if loader.startsWith('facebook/')}
           {#each Object.entries(eventCollection) as [groupName, eventGroup]}
-            <li role="listitem">{$_('overview.' + loader + '.' + groupName)}: {eventGroup.length.toLocaleString()}</li>
+            <li role="listitem">
+              {$_('overview.' + loader + '.' + groupName)}:
+              {eventGroup.length.toLocaleString()}
+            </li>
           {/each}
         {/if}
       {/each}
@@ -95,10 +102,11 @@
 
     <h3 id="google-restrict">{$_('overview.facebook-restrict-header')}</h3>
     <ul aria-labelledby="facebook-restrict" role="list" class="restrict">
-      <li role="listitem">- {$_('overview.facebook-restrict-0')}</li>
-      <li role="listitem">- {$_('overview.facebook-restrict-1')}</li>
-      <li role="listitem">- {$_('overview.facebook-restrict-2')}</li>
-      <li role="listitem">- {$_('overview.facebook-restrict-3')}</li>
+      {#each $_('overview.facebook-restrict') as text}
+        <li role="listitem">
+          - {@html text}
+        </li>
+      {/each}
     </ul>
   </div>
 </div>
