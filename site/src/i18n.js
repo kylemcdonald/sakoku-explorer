@@ -44,5 +44,5 @@ export const _ = derived(locale, ($locale) => (word) => {
     return word;
   }
   console.warn('Using fallback i18n for "' + word + '"');
-  return alternative;
+  return linkify(alternative);
 });
