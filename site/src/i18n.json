@@ -84,14 +84,15 @@
   "jp": {
     "about": {
       "header": "Sakoku Explorer",
-      "description-1": "このアプリは、FacebookやGoogleが収集したデータを探る過程を案内してくれます。",
-      "description-2": "お客様のデータはすべてお客様のコンピュータに保存されます。お客様のデータは、お客様の明示的な同意なしにリモートで送信されることはありません。",
+      "description-1": "このアプリはFacebookとGoogleが収集したデータを探るプロセスにご案内します。",
+      "description-2": "あなたのデータはあなたのコンピュータに存在します。あなたの明白な同意なしに別のマシンへ送信されることはありません。
+",
       "about-alt": "folder icon"
     },
     "drop": {
-      "header": "あなたのデータをこの中に入れてください。上に描かれたドットボックス。",
+      "header": "上の点線ボックス内にあなたのデータをドラッグしてください。",
       "descriptions": [
-        "お客様のデータはすべてお客様のコンピュータに保存されます。お客様のデータは、お客様の明示的な同意なしにリモートで送信されることはありません。",
+        "あなたのデータはあなたのコンピュータに存在します。あなたの明白な同意なしに別のマシンへ送信されることはありません。",
         "Googleの場合は、[こちら](https://takeout.google.com/)よりダウンロード（形式はjsonを選択）した「Takeout」フォルダ（ダウンロードした最上位のフォルダ）",
         "Facebookの場合は、[こちら](https://www.facebook.com/dyi)よりダウンロード（形式はjsonを選択）した「facebook-xxxx(ユーザ 名)」フォルダ（ダウンロードした最上位のフォルダ）"
       ],
@@ -102,33 +103,33 @@
 
       "eyes-alt": "eyes icon",
       "facebook-header": "Facebook",
-      "facebook/comments": "Comments",
-      "facebook/friends": "Friends",
-      "facebook/notifications": "Notifications",
-      "facebook/off-facebook": "Off-Facebook",
-      "facebook/posts": "Posts",
-      "facebook/reactions": "Reactions",
+      "facebook/comments": "コメント",
+      "facebook/friends": "友人",
+      "facebook/notifications": "通知",
+      "facebook/off-facebook": "Off-Facebookアクティビティ",
+      "facebook/posts": "ポスト",
+      "facebook/reactions": "リアクション",
       "facebook/search": "検索",
       "facebook/viewed": "視聴",
       "facebook/visited": "アクセス",
       "facebook-restrict-header": "Facebookのデータ収集を制限するには",
       "facebook-restrict": [
-        "プライベートモードでブラウジングするまたは[Brave browser](https://brave.com/)を使用する",
+        "プライベートモードでブラウジングする、または[Brave browser](https://brave.com/)を使用する",
         "[Facebookのプライバシー設定](https://www.facebook.com/privacy/checkup/)を変更する",
         "スマホからFacebookのアプリをアンインストールする",
         "Facebookアカウントを使って他サービスにログインしない"
       ],
 
       "google-header": "Google",
-      "google/ads": "Ads",
+      "google/ads": "広告",
       "google/maps": "マップ",
       "google/image-search": {
-        "imageViewActivity": "画像を視聴",
+        "imageViewActivity": "見たことのある画像",
         "imageSearchActivity": "画像を検索"
       },
       "google/search": {
-        "visitedActivity": "Pages visited",
-        "searchActivity": "Page 検索"
+        "visitedActivity": "表示したことのあるページ",
+        "searchActivity": "検索"
       },
       "google/youtube": {
         "youtubeWatchActivity": "YouTube 視聴",
@@ -136,7 +137,7 @@
       },
       "google-restrict-header": "Googleのデータ収集を制限するには",
       "google-restrict": [
-        "プライベートモードでブラウジングするまたは[Brave browser](https://brave.com/)を使用する",
+        "プライベートモードでブラウジングする、または[Brave browser](https://brave.com/)を使用する",
         "[Googleのプライバシー設定](https://myaccount.google.com/data-and-personalization)を変更する",
         "スマホからGoogleアプリをアンインストールする",
         "Googleアカウントアカウントを使って他サービスにログインしない"
