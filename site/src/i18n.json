@@ -85,8 +85,7 @@
     "about": {
       "header": "Sakoku Explorer",
       "description-1": "このアプリはFacebookとGoogleが収集したデータを探るプロセスにご案内します。",
-      "description-2": "あなたのデータはあなたのコンピュータに存在します。あなたの明白な同意なしに別のマシンへ送信されることはありません。
-",
+      "description-2": "あなたのデータはあなたのコンピュータに存在します。あなたの明白な同意なしに別のマシンへ送信されることはありません。",
       "about-alt": "folder icon"
     },
     "drop": {
