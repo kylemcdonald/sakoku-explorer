@@ -8,15 +8,27 @@
   import { eventCache } from "../backends";
   let cal;
 
-  function getMostRecentDate(events) {
+  let eventSourceCache = {};
+
+  function getMostRecentDateFromEvents(events) {
     if (events.length == 0) {
       return;
     }
-    window.events = events;
     const mostRecent = events
       .map((e) => new Date(e.start))
       .reduce((a, b) => Math.max(a, b));
-    return new Date(mostRecent);
+    return mostRecent;
+  }
+
+  function getMostRecentDateFromEventSources(eventSources) {
+    try {
+      const mostRecent = Object.entries(eventSources)
+        .map(([_, source]) => getMostRecentDateFromEvents(source.events))
+        .reduce((a, b) => Math.max(a, b));
+      return mostRecent;
+    } catch (e) {
+      return new Date();
+    }
   }
 
   const colorScheme = {
@@ -42,35 +54,37 @@
     },
   };
 
-  function addCalendarData(calendar, loader, eventsCollection) {
+  function addEventSources(loader, eventsCollection) {
     const backendName = loader.split("/")[0];
     for (const [key, events] of Object.entries(eventsCollection)) {
       const id = backendName + "." + key;
       const color = colorScheme[backendName][key];
-      const existingEventSource = calendar.getEventSourceById(id);
-      if (existingEventSource != null) {
-        // remove any existing event source with this same id
-        existingEventSource.remove();
-      }
-      const eventSource = {
+      eventSourceCache[id] = {
         events: events,
         color: color,
         id: id,
       };
-      calendar.addEventSource(eventSource);
     }
   }
 
   onMount(async () => {
-    let today = new Date().toISOString().split("T")[0];
-    let elt = cal; //document.querySelector('#calendar');
+    for (const [loader, eventCollection] of Object.entries(eventCache)) {
+      addEventSources(loader, eventCollection);
+    }
+
+    // jump to most recent date
+    console.log(eventSourceCache);
+    const mostRecent = getMostRecentDateFromEventSources(eventSourceCache);
+
+    let elt = cal;
     const calendar = new Calendar(elt, {
       plugins: [dayGridPlugin, timeGridPlugin],
+      eventSources: Object.values(eventSourceCache),
       aspectRatio: 2,
       eventDidMount: (info) => {
         tippy(info.el, {
           content: info.event.title,
-          duration: 0
+          duration: 0,
         });
       },
       eventClick: (info) => {
@@ -82,7 +96,7 @@
       defaultTimedEventDuration: "00:30",
       scrollTime: "9:00AM",
       initialView: "timeGridWeek",
-      initialDate: today,
+      initialDate: mostRecent,
       headerToolbar: {
         left: "today prev,next",
         center: "title",
@@ -94,18 +108,7 @@
       },
     });
     calendar.render();
-
-    calendar.batchRendering(() => {
-      for (const [loader, eventCollection] of Object.entries(eventCache)) {
-        addCalendarData(calendar, loader, eventCollection);
-      }
-
-      // jump to most recent date
-      const mostRecent = getMostRecentDate(calendar.getEvents());
-      if (mostRecent !== undefined) {
-        calendar.gotoDate(mostRecent);
-      }
-    });
+    window.calendar = calendar;
   });
 </script>
 
