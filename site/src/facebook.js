@@ -34,7 +34,7 @@ function loadOffFacebookActivity(raw) {
       const timestamp = new Date(e.timestamp * 1000);
       events.push({
         title: title,
-        start: timestamp.toISOString(),
+        start: timestamp,
         site: name,
       });
       // if (!(type in groups)) {
@@ -60,7 +60,7 @@ function loadSearchHistory(raw) {
       // e.data[0] does not always exist
       return {
         title: fixFacebookEncoding(e.attachments[0].data[0].text),
-        start: timestamp.toISOString(),
+        start: timestamp,
       };
     }),
   };
@@ -84,7 +84,7 @@ function loadTimestamped(raw) {
     return {
       title: fixFacebookEncoding(e.data.name),
       url: e.data.uri,
-      start: timestamp.toISOString(),
+      start: timestamp,
     };
   });
 }
@@ -109,7 +109,7 @@ function loadNotifications(raw) {
       return {
         title: fixFacebookEncoding(e.text),
         url: e.href,
-        start: timestamp.toISOString(),
+        start: timestamp,
       };
     }),
   };
@@ -122,7 +122,7 @@ function loadComments(raw) {
       const timestamp = new Date(e.timestamp * 1000);
       return {
         title: fixFacebookEncoding(e.title),
-        start: timestamp.toISOString(),
+        start: timestamp,
       };
     }),
   };
@@ -139,7 +139,7 @@ function loadPosts(raw) {
       }
       return {
         title: title,
-        start: timestamp.toISOString(),
+        start: timestamp,
       };
     }),
   };
@@ -152,7 +152,7 @@ function loadLikesAndReactions(raw) {
       const timestamp = new Date(e.timestamp * 1000);
       return {
         title: fixFacebookEncoding(e.title),
-        start: timestamp.toISOString(),
+        start: timestamp,
       };
     }),
   };
@@ -165,7 +165,7 @@ function loadFriends(raw) {
       const timestamp = new Date(e.timestamp * 1000);
       return {
         title: fixFacebookEncoding(e.name),
-        start: timestamp.toISOString(),
+        start: timestamp,
       };
     }),
   };

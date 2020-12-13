@@ -3,7 +3,7 @@ module.exports = {
 };
 
 function parseDatetime(datetime) {
-  return new Date(Date.parse(datetime)).toISOString();
+  return new Date(Date.parse(datetime));
 }
 
 // this is not a simple task, but we need something fast
