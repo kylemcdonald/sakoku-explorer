@@ -27,8 +27,8 @@
       "facebook/posts": "Posts",
       "facebook/reactions": "Reactions",
       "facebook/search": "Search",
-      "facebook/viewed": "Viewed",
-      "facebook/visited": "Visited",
+      "facebook/viewed": "Post Views",
+      "facebook/visited": "Page Visits",
       "facebook-restrict-header": "To restrict Facebook data collection:",
       "facebook-restrict": [
         "use private browsing or [Brave browser](https://brave.com/)",
@@ -41,16 +41,16 @@
       "google/ads": "Ads",
       "google/maps": "Maps",
       "google/image-search": {
-        "imageViewActivity": "Images viewed",
-        "imageSearchActivity": "Image search"
+        "imageViewActivity": "Image View",
+        "imageSearchActivity": "Image Search"
       },
       "google/search": {
-        "visitedActivity": "Pages visited",
-        "searchActivity": "Page search"
+        "visitedActivity": "Page Visits",
+        "searchActivity": "Search"
       },
       "google/youtube": {
-        "youtubeWatchActivity": "YouTube watched",
-        "youtubeSearchActivity": "YouTube searched"
+        "youtubeWatchActivity": "YouTube Watch",
+        "youtubeSearchActivity": "YouTube Search"
       },
       "google-restrict-header": "To restrict Google data collection:",
       "google-restrict": [

@@ -8,43 +8,10 @@
   import { eventCache } from "../backends";
   import { nearest } from "../nearest";
   import { _ } from "../i18n";
-import { toggle_class } from "svelte/internal";
+  import { getColor } from "../color";
+
   let cal;
-
   let eventSourceCache = {};
-
-  const colorScheme = {
-    google: {
-      adsActivity: "#ef6b88",
-      youtubeSearchActivity: "#c2ef63",
-      youtubeWatchActivity: "#be51ed",
-      imageSearchActivity: "#70d9ea",
-      imageViewActivity: "#63efa2",
-      mapsActivity: "#5f9bee",
-      searchActivity: "#e156e3",
-      visitedActivity: "#48dd9d",
-    },
-    facebook: {
-      comments: "#ef6b88",
-      visited: "#c2ef63",
-      viewed: "#be51ed",
-      searchHistory: "#70d9ea",
-      offFacebookActivity: "#63efa2",
-      notifications: "#5f9bee",
-      likesAndReactions: "#e156e3",
-      friends: "#48dd9d",
-    },
-  };
-
-  // function getMostRecentDateFromEvents(events) {
-  //   if (events.length == 0) {
-  //     return;
-  //   }
-  //   const mostRecent = events
-  //     .map((e) => new Date(e.start))
-  //     .reduce((a, b) => Math.max(a, b));
-  //   return mostRecent;
-  // }
 
   function eventComparator(a, b) {
     return a.start < b.start ? -1 : +1;
@@ -75,15 +42,15 @@ import { toggle_class } from "svelte/internal";
   }
 
   function addEventSources(loader, eventsCollection) {
-    const backendName = loader.split("/")[0];
+    const backend = loader.split("/")[0];
     for (const [key, events] of Object.entries(eventsCollection)) {
-      const id = backendName + "/" + key;
-      const color = colorScheme[backendName][key];
+      const word = loader + "." + key;
+      const color = getColor(word);
       events.sort(eventComparator);
-      eventSourceCache[id] = {
+      eventSourceCache[word] = {
         events: events.slice(-500), //getEventGenerator(events),
         color: color,
-        id: id,
+        id: word,
       };
     }
     window.eventSourceCache = eventSourceCache;
@@ -145,11 +112,13 @@ import { toggle_class } from "svelte/internal";
     window.eventCache = eventCache;
   });
 
-  function toggleEventSource(eventSourceId) {
+  function toggleEventSource(elt, eventSourceId) {
     const eventSource = calendar.getEventSourceById(eventSourceId);
     if (eventSource !== null) {
+      elt.style.filter = "grayscale(100%)";
       eventSource.remove();
     } else {
+      elt.style.filter = "";
       calendar.addEventSource(eventSourceCache[eventSourceId]);
     }
   }
@@ -163,26 +132,29 @@ import { toggle_class } from "svelte/internal";
   legend {
     position: fixed;
     bottom: 0;
+    z-index: 1;
   }
   legend > button {
     color: white;
-    font-size: 0.5em;
+    font-size: 0.8em;
     font-weight: 900;
     font-style: italic;
-    padding: 2px 4px;
-    background-color: #ef6b88;
-    border: 1px solid white;
-    border-radius: 3px;
+    margin: 0.05em;
+    padding: 0.1em 0.2em;
+    background-color: black;
+    border: 0.1em solid white;
+    border-radius: 0.3em;
+    box-shadow: 0px 0px 20px 2px rgba(0, 0, 0, 0.2);
   }
 </style>
 
 <h1 class="sr-only">Calendar</h1>
 <div bind:this={cal} id="sakocal" />
 <legend>
-  {#each Object.keys(eventSourceCache) as name}
+  {#each Object.keys(eventSourceCache) as word}
     <button
       class=".fc-event"
-      on:click={toggleEventSource(name)}
-      style="background-color:{colorScheme[name.split('/')[0]][name.split('/')[1]]}">{$_('overview.' + name)}</button>
+      on:click={toggleEventSource(this, word)}
+      style="background-color:{getColor(word)}">{$_('overview.' + word)}</button>
   {/each}
 </legend>

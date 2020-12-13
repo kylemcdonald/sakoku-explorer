@@ -1,5 +1,6 @@
 <script>
   import { _ } from "../i18n";
+  import { getColor } from "../color";
   import { eventCache } from "../backends";
   window.eventCache = eventCache;
 </script>
@@ -16,6 +17,13 @@
   .middle-col,
   .right-col {
     margin-left: 2em;
+  }
+
+  total {
+    color: white;
+    border-radius: 0.2em;
+    display: inline;
+    padding: 0 0.1em;
   }
 
   .icon {
@@ -41,6 +49,7 @@
 
   .restrict {
     font-size: 0.5em;
+    margin-bottom: 4em;
   }
 </style>
 
@@ -62,8 +71,8 @@
         {#if loader.startsWith('google/')}
           {#each Object.entries(eventCollection) as [groupName, eventGroup]}
             <li role="listitem">
-              {$_('overview.' + loader + '.' + groupName)}:
-              {eventGroup.length.toLocaleString()}
+              {$_('overview.' + loader + '.' + groupName)}
+              <total style="background-color:{getColor(loader + '.' + groupName)}">{eventGroup.length.toLocaleString()}</total>
             </li>
           {/each}
         {/if}
@@ -74,7 +83,8 @@
     <ul aria-labelledby="google-restrict" role="list" class="restrict">
       {#each $_('overview.google-restrict') as text}
         <li role="listitem">
-          - {@html text}
+          -
+          {@html text}
         </li>
       {/each}
     </ul>
@@ -92,8 +102,8 @@
         {#if loader.startsWith('facebook/')}
           {#each Object.entries(eventCollection) as [groupName, eventGroup]}
             <li role="listitem">
-              {$_('overview.' + loader + '.' + groupName)}:
-              {eventGroup.length.toLocaleString()}
+              {$_('overview.' + loader + '.' + groupName)}
+              <total style="background-color:{getColor(loader + '.' + groupName)}">{eventGroup.length.toLocaleString()}</total>
             </li>
           {/each}
         {/if}
@@ -104,7 +114,8 @@
     <ul aria-labelledby="facebook-restrict" role="list" class="restrict">
       {#each $_('overview.facebook-restrict') as text}
         <li role="listitem">
-          - {@html text}
+          -
+          {@html text}
         </li>
       {/each}
     </ul>

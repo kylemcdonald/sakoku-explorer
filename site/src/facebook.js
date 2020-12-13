@@ -2,7 +2,7 @@ module.exports = {
   name: "facebook",
 };
 
-const utf8 = require('utf8');
+const utf8 = require("utf8");
 
 // let appInfo = { };
 // async function getAppInfo(appId) {
@@ -46,7 +46,7 @@ function loadOffFacebookActivity(raw) {
   });
   // console.log(groups);
   return {
-    offFacebookActivity: events,
+    "off-facebook": events,
   };
 }
 
@@ -54,7 +54,7 @@ function loadSearchHistory(raw) {
   let events = [];
   const data = JSON.parse(raw);
   return {
-    searchHistory: data.searches.map((e) => {
+    search: data.searches.map((e) => {
       const timestamp = new Date(e.timestamp * 1000);
       // e.attachments[0].data[0] always exists
       // e.data[0] does not always exist
@@ -148,7 +148,7 @@ function loadPosts(raw) {
 function loadLikesAndReactions(raw) {
   const data = flatten(JSON.parse(raw));
   return {
-    likesAndReactions: data.map((e) => {
+    reactions: data.map((e) => {
       const timestamp = new Date(e.timestamp * 1000);
       return {
         title: fixFacebookEncoding(e.title),

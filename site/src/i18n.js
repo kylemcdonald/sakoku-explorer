@@ -16,7 +16,7 @@ function linkify(text) {
   );
 }
 
-function getSubKey(dict, items) {
+export function getSubKey(dict, items) {
   if (items.length == 0) {
     // perfect match
     return dict;
