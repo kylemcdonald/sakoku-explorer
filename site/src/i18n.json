@@ -92,8 +92,10 @@
       "header": "上の点線ボックス内にあなたのデータをドラッグしてください。",
       "descriptions": [
         "あなたのデータはあなたのコンピュータに存在します。あなたの明白な同意なしに別のマシンへ送信されることはありません。",
-        "Googleの場合は、[こちら](https://takeout.google.com/)よりダウンロード（形式はjsonを選択）した「Takeout」フォルダ（ダウンロードした最上位のフォルダ）",
-        "Facebookの場合は、[こちら](https://www.facebook.com/dyi)よりダウンロード（形式はjsonを選択）した「facebook-xxxx(ユーザ 名)」フォルダ（ダウンロードした最上位のフォルダ）"
+        "Googleの場合は、[こちら](https://takeout.google.com/)から「Google データ エクスポート」へ。「マイ アクティビティ」以外の選択を解除し、「複数の形式」をクリックしJson形式を選択してから、「エクスポートを作成」してください。ダウンロードしたファイルを解凍した後、最上位のフォルダをドラッグしてください。
+",
+        "Facebookの場合は、[こちら](https://www.facebook.com/dyi)より「個人データをダウンロード」へ。フォーマットはJSON、メディアの画質は「低」を選択。「写真とビデオ」「ストーリーズ」の選択を解除してから「ファイルを作成」してください。ダウンロードしたファイルを解凍した後、最上位のフォルダをドラッグしてください。
+）"
       ],
       "floppy-alt": "floppy disk icon"
     },
@@ -146,13 +148,13 @@
     "games": {
       "same-websites-header": "Same Websites",
       "same-websites-question": "みんなが使ったことのあるウェブサイトやアプリは？",
-      "same-websites-description": "ページではなく、ウェブの名前だけがサーバーに送信されます。これが送信されるデータです。",
+      "same-websites-description": "ページそのものではなく、ページの名前だけがサーバーに送信されます。これが送信されるデータです。",
       "same-videos-header": "Same Videos",
       "same-videos-question": "みんなが見たことのある動画は？",
       "same-videos-description": "動画の名前だけがサーバーに送られ、動画自体は送られません。これが送信されるデータです。",
       "same-searches-header": "Same Searches",
       "same-searches-question": "みんなが調べたことのあるものは？",
-      "same-searches-description": "Your search terms will be sent to the server, but only common search terms are visible. This is the data that will be sent.",
+      "same-searches-description": "検索ワードのみがサーバーに送られます。他のメンバーは共通の検索ワードのみを見ることができます。これが送信されるデータです。",
       "prepare-data": "データを準備",
       "share-data": "データをシェア",
       "group": "グループ",
