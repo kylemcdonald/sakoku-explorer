@@ -60,7 +60,32 @@
         "do not use Google to log in to services"
       ]
     },
-    "calendar": {},
+    "calendar": {
+      "facebook/comments": "Facebook Comments",
+      "facebook/friends": "FacebookFriends",
+      "facebook/notifications": "Facebook Notifications",
+      "facebook/off-facebook": "Off-Facebook",
+      "facebook/posts": "Facebook Posts",
+      "facebook/reactions": "Facebook Reactions",
+      "facebook/search": "Facebook Search",
+      "facebook/viewed": "Facebook Post Views",
+      "facebook/visited": "Facebook Page Visits",
+
+      "google/ads": "Google Ads",
+      "google/maps": "Google Maps",
+      "google/image-search": {
+        "imageViewActivity": "Google Image View",
+        "imageSearchActivity": "Google Image Search"
+      },
+      "google/search": {
+        "visitedActivity": "Google Page Visits",
+        "searchActivity": "Google Search"
+      },
+      "google/youtube": {
+        "youtubeWatchActivity": "YouTube Watch",
+        "youtubeSearchActivity": "YouTube Search"
+      }
+    },
     "games": {
       "same-websites-header": "Same Websites",
       "same-websites-question": "What websites and apps has everyone used?",
@@ -92,10 +117,8 @@
       "header": "上の点線ボックス内にあなたのデータをドラッグしてください。",
       "descriptions": [
         "あなたのデータはあなたのコンピュータに存在します。あなたの明白な同意なしに別のマシンへ送信されることはありません。",
-        "Googleの場合は、[こちら](https://takeout.google.com/)から「Google データ エクスポート」へ。「マイ アクティビティ」以外の選択を解除し、「複数の形式」をクリックしJson形式を選択してから、「エクスポートを作成」してください。ダウンロードしたファイルを解凍した後、最上位のフォルダをドラッグしてください。
-",
-        "Facebookの場合は、[こちら](https://www.facebook.com/dyi)より「個人データをダウンロード」へ。フォーマットはJSON、メディアの画質は「低」を選択。「写真とビデオ」「ストーリーズ」の選択を解除してから「ファイルを作成」してください。ダウンロードしたファイルを解凍した後、最上位のフォルダをドラッグしてください。
-）"
+        "Googleの場合は、[こちら](https://takeout.google.com/)から「Google データ エクスポート」へ。「マイ アクティビティ」以外の選択を解除し、「複数の形式」をクリックしJson形式を選択してから、「エクスポートを作成」してください。ダウンロードしたファイルを解凍した後、最上位のフォルダをドラッグしてください。",
+        "Facebookの場合は、[こちら](https://www.facebook.com/dyi)より「個人データをダウンロード」へ。フォーマットはJSON、メディアの画質は「低」を選択。「写真とビデオ」「ストーリーズ」の選択を解除してから「ファイルを作成」してください。ダウンロードしたファイルを解凍した後、最上位のフォルダをドラッグしてください。）"
       ],
       "floppy-alt": "floppy disk icon"
     },
@@ -133,8 +156,8 @@
         "searchActivity": "検索"
       },
       "google/youtube": {
-        "youtubeWatchActivity": "YouTube 視聴",
-        "youtubeSearchActivity": "YouTube 検索"
+        "youtubeWatchActivity": "YouTube視聴",
+        "youtubeSearchActivity": "YouTube検索"
       },
       "google-restrict-header": "Googleのデータ収集を制限するには",
       "google-restrict": [
@@ -144,7 +167,32 @@
         "Googleアカウントアカウントを使って他サービスにログインしない"
       ]
     },
-    "calendar": {},
+    "calendar": {
+      "facebook/comments": "Facebookコメント",
+      "facebook/friends": "Facebook友人",
+      "facebook/notifications": "Facebook通知",
+      "facebook/off-facebook": "Off-Facebookアクティビティ",
+      "facebook/posts": "Facebookポスト",
+      "facebook/reactions": "Facebookリアクション",
+      "facebook/search": "Facebook検索",
+      "facebook/viewed": "Facebook視聴",
+      "facebook/visited": "Facebookアクセス",
+
+      "google/ads": "Google広告",
+      "google/maps": "Googleマップ",
+      "google/image-search": {
+        "imageViewActivity": "Google見たことのある画像",
+        "imageSearchActivity": "Google画像を検索"
+      },
+      "google/search": {
+        "visitedActivity": "Google表示したことのあるページ",
+        "searchActivity": "Google検索"
+      },
+      "google/youtube": {
+        "youtubeWatchActivity": "YouTube視聴",
+        "youtubeSearchActivity": "YouTube検索"
+      }
+    },
     "games": {
       "same-websites-header": "Same Websites",
       "same-websites-question": "みんなが使ったことのあるウェブサイトやアプリは？",

@@ -48,7 +48,7 @@
       const color = getColor(word);
       events.sort(eventComparator);
       eventSourceCache[word] = {
-        events: events.slice(-500), //getEventGenerator(events),
+        events: events, //getEventGenerator(events),
         color: color,
         id: word,
       };
@@ -155,6 +155,6 @@
     <button
       class=".fc-event"
       on:click={toggleEventSource(this, word)}
-      style="background-color:{getColor(word)}">{$_('overview.' + word)}</button>
+      style="background-color:{getColor(word)}">{$_('calendar.' + word)}</button>
   {/each}
 </legend>
