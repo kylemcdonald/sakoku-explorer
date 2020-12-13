@@ -1,13 +1,14 @@
 <script>
   import { onMount } from "svelte";
   import { Calendar } from "@fullcalendar/core";
+  import jaLocale from "@fullcalendar/core/locales/ja";
   import dayGridPlugin from "@fullcalendar/daygrid";
   import timeGridPlugin from "@fullcalendar/timegrid";
   import tippy from "tippy.js";
   import "tippy.js/dist/tippy.css";
   import { eventCache } from "../backends";
   import { nearest } from "../nearest";
-  import { _ } from "../i18n";
+  import { locale, _ } from "../i18n";
   import { getColor } from "../color";
 
   let cal;
@@ -68,6 +69,8 @@
     }
   }
 
+  let calendar;
+  $: calendar !== undefined && calendar.setOption("locale", $locale);
   onMount(async () => {
     for (const [loader, eventCollection] of Object.entries(eventCache)) {
       addEventSources(loader, eventCollection);
@@ -77,8 +80,10 @@
     const mostRecent = getMostRecentDateFromEventSources(eventSourceCache);
 
     let elt = cal;
-    const calendar = new Calendar(elt, {
+    calendar = new Calendar(elt, {
       plugins: [dayGridPlugin, timeGridPlugin],
+      locales: [jaLocale],
+      locale: $locale,
       eventSources: Object.values(eventSourceCache),
       aspectRatio: 2,
       eventDidMount: (info) => {

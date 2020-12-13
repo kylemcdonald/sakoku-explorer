@@ -16,27 +16,40 @@
 
 <style>
   lang {
-    float:right
+    float: right;
   }
 
   lang button {
     margin-left: 0.5em;
   }
-
 </style>
 
 <Router {url}>
-  <nav aria-label='primary'>
-    <ul role='list'>
-      <li role='listitem'><NavLink to="/" >Home</NavLink>
-      <li role='listitem'><NavLink to="drop-your-data">Drop_Your_Data</NavLink>
-      <li role='listitem'><NavLink to="overview">Overview</NavLink>
-      <li role='listitem'><NavLink to="calendar">Calendar</NavLink>
-      <li role='listitem'><NavLink to="games">Games</NavLink>
+  <nav aria-label="primary">
+    <ul role="list">
+      <li role="listitem">
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li role="listitem">
+        <NavLink to="drop-your-data">Drop_Your_Data</NavLink>
+      </li>
+      <li role="listitem">
+        <NavLink to="overview">Overview</NavLink>
+      </li>
+      <li role="listitem">
+        <NavLink to="calendar">Calendar</NavLink>
+      </li>
+      <li role="listitem">
+        <NavLink to="games">Games</NavLink>
+      </li>
     </ul>
     <lang>
-      <button on:click={() => ($locale = 'en')} class='{$locale === "en" ? "active" : ""}'>EN</button>
-      <button on:click={() => ($locale = 'jp')} class='{$locale === "jp" ? "active" : ""}'>JP</button>
+      <button
+        on:click={() => ($locale = 'en')}
+        class={$locale === 'en' ? 'active' : ''}>EN</button>
+      <button
+        on:click={() => ($locale = 'ja')}
+        class={$locale === 'ja' ? 'active' : ''}>JP</button>
     </lang>
   </nav>
   <section>

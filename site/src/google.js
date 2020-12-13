@@ -40,7 +40,7 @@ function loadActivityJson(data) {
 function extractSearchFunc(lang) {
   return {
     en: (e) => e.slice(13), // remove "Searched for"
-    jp: (e) => e.slice(2, -9), // remove "「 " and " 」を検索しました"
+    ja: (e) => e.slice(2, -9), // remove "「 " and " 」を検索しました"
   }[lang];
 }
 
@@ -64,11 +64,11 @@ function extractUrlFromVisited(url) {
 function loadSearchActivityJson(raw, lang) {
   const searchFilter = {
     en: (e) => e.title.startsWith("Searched"),
-    jp: (e) => e.title.endsWith("を検索しました"),
+    ja: (e) => e.title.endsWith("を検索しました"),
   }[lang];
   const visitedFilter = {
     en: (e) => e.title.startsWith("Visited"),
-    jp: (e) => e.title.endsWith("にアクセスしました"),
+    ja: (e) => e.title.endsWith("にアクセスしました"),
   }[lang];
   const extractSearch = extractSearchFunc(lang);
 
@@ -102,11 +102,11 @@ function loadYouTubeActivityJson(raw, lang) {
 
   const searchFilter = {
     en: (e) => e.title.startsWith("Searched"),
-    jp: (e) => e.title.endsWith("を検索しました"),
+    ja: (e) => e.title.endsWith("を検索しました"),
   }[lang];
   const watchFilter = {
     en: (e) => e.title.startsWith("Watched"),
-    jp: (e) => e.title.endsWith("を視聴しました"),
+    ja: (e) => e.title.endsWith("を視聴しました"),
   }[lang];
   const extractSearch = extractSearchFunc(lang);
 
@@ -139,11 +139,11 @@ function loadImageSearchActivityJson(raw, lang) {
 
   const searchFilter = {
     en: (e) => e.title.startsWith("Searched"),
-    jp: (e) => e.title.endsWith("を検索しました"),
+    ja: (e) => e.title.endsWith("を検索しました"),
   }[lang];
   const viewFilter = {
     en: (e) => e.title.startsWith("Viewed"),
-    jp: (e) => e.title.endsWith("画像を表示"),
+    ja: (e) => e.title.endsWith("画像を表示"),
   }[lang];
   const extractSearch = extractSearchFunc(lang);
 
@@ -220,7 +220,7 @@ module.exports.handlers = [
   {
     path: "/検索/マイアクティビティ.json",
     name: "search",
-    load: wrap(loadSearchActivityJson, "jp"),
+    load: wrap(loadSearchActivityJson, "ja"),
   },
   {
     path: "/YouTube/MyActivity.json",
@@ -230,7 +230,7 @@ module.exports.handlers = [
   {
     path: "/YouTube/マイアクティビティ.json",
     name: "youtube",
-    load: wrap(loadYouTubeActivityJson, "jp"),
+    load: wrap(loadYouTubeActivityJson, "ja"),
   },
   {
     path: "/Image Search/MyActivity.json",
@@ -240,7 +240,7 @@ module.exports.handlers = [
   {
     path: "/画像検索/マイアクティビティ.json",
     name: "image-search",
-    load: wrap(loadImageSearchActivityJson, "jp"),
+    load: wrap(loadImageSearchActivityJson, "ja"),
   },
   {
     path: "/Ads/MyActivity.json",
@@ -250,7 +250,7 @@ module.exports.handlers = [
   {
     path: "/Ads/マイアクティビティ.json",
     name: "ads",
-    load: wrap(loadAdsActivityJson, "jp"),
+    load: wrap(loadAdsActivityJson, "ja"),
   },
   {
     path: "/Maps/MyActivity.json",
@@ -260,6 +260,6 @@ module.exports.handlers = [
   {
     path: "/マップ/マイアクティビティ.json",
     name: "maps",
-    load: wrap(loadMapsActivityJson, "jp"),
+    load: wrap(loadMapsActivityJson, "ja"),
   },
 ];
