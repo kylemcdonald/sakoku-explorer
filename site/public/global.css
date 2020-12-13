@@ -5,7 +5,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
   font-weight: 900;
   font-size: 2vw;
   font-style: italic;
@@ -27,7 +27,7 @@ button {
   border: none;
   background: none;
   cursor: pointer;
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
   font-weight: 900;
   font-size: 2vw;
 }
