@@ -61,6 +61,8 @@
       ]
     },
     "calendar": {
+      "toggle-text": "Toggle Text",
+
       "facebook/comments": "Facebook Comments",
       "facebook/friends": "FacebookFriends",
       "facebook/notifications": "Facebook Notifications",
@@ -168,6 +170,8 @@
       ]
     },
     "calendar": {
+      "toggle-text": "テキストの切り替え",
+
       "facebook/comments": "Facebookコメント",
       "facebook/friends": "Facebook友人",
       "facebook/notifications": "Facebook通知",

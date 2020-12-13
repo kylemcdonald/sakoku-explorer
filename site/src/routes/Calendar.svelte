@@ -33,10 +33,8 @@
           eventComparator,
           startIndex
         );
-        console.log(events, info.start, info.end, startIndex, endIndex);
         success(events.slice(startIndex, endIndex));
       } catch (e) {
-        console.log("out of bounds");
         success([]);
       }
     };
@@ -59,7 +57,6 @@
 
   function getMostRecentDateFromEventSources(sources) {
     try {
-      console.log(sources);
       const mostRecent = Object.values(sources)
         .map((source) => source.events.slice(-1)[0].start)
         .reduce((a, b) => Math.max(a, b));
@@ -127,6 +124,12 @@
       calendar.addEventSource(eventSourceCache[eventSourceId]);
     }
   }
+
+  function toggleText() {
+    [...document.getElementsByClassName("fc-event-title")].forEach((e) => {
+      e.style.display = e.style.display == "none" ? "" : "none";
+    });
+  }
 </script>
 
 <style>
@@ -156,9 +159,11 @@
 <h1 class="sr-only">Calendar</h1>
 <div bind:this={cal} id="sakocal" />
 <legend>
+  <button
+    on:click={toggleText}
+    style="background-color:white;color:black">{$_('calendar.toggle-text')}</button>
   {#each Object.keys(eventSourceCache) as word}
     <button
-      class=".fc-event"
       on:click={toggleEventSource(this, word)}
       style="background-color:{getColor(word)}">{$_('calendar.' + word)}</button>
   {/each}
