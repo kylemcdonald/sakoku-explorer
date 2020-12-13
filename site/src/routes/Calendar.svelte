@@ -6,30 +6,10 @@
   import tippy from "tippy.js";
   import "tippy.js/dist/tippy.css";
   import { eventCache } from "../backends";
+  import { nearest } from "../nearest";
   let cal;
 
   let eventSourceCache = {};
-
-  function getMostRecentDateFromEvents(events) {
-    if (events.length == 0) {
-      return;
-    }
-    const mostRecent = events
-      .map((e) => new Date(e.start))
-      .reduce((a, b) => Math.max(a, b));
-    return mostRecent;
-  }
-
-  function getMostRecentDateFromEventSources(eventSources) {
-    try {
-      const mostRecent = Object.entries(eventSources)
-        .map(([_, source]) => getMostRecentDateFromEvents(source.events))
-        .reduce((a, b) => Math.max(a, b));
-      return mostRecent;
-    } catch (e) {
-      return new Date();
-    }
-  }
 
   const colorScheme = {
     google: {
@@ -54,16 +34,54 @@
     },
   };
 
+  // function getMostRecentDateFromEvents(events) {
+  //   if (events.length == 0) {
+  //     return;
+  //   }
+  //   const mostRecent = events
+  //     .map((e) => new Date(e.start))
+  //     .reduce((a, b) => Math.max(a, b));
+  //   return mostRecent;
+  // }
+
+  function eventComparator(a, b) {
+    return a.start < b.start ? -1 : +1;
+  }
+
   function addEventSources(loader, eventsCollection) {
     const backendName = loader.split("/")[0];
     for (const [key, events] of Object.entries(eventsCollection)) {
       const id = backendName + "." + key;
       const color = colorScheme[backendName][key];
+      events.sort(eventComparator);
       eventSourceCache[id] = {
         events: events,
         color: color,
         id: id,
       };
+    }
+  }
+
+  function getEventGenerator(events) {
+    events.sort(eventComparator);
+    return (info, success, failure) => {
+      const startTime = info.start.valueOf();
+      const endTime = info.end.valueOf();
+      const startIndex = nearest(events, startTime, eventComparator);
+      const endIndex = nearest(events, endTime, eventComparator, startIndex);
+      return events.slice(startIndex, endIndex);
+    };
+  }
+
+  function getMostRecentDateFromEventSources(sources) {
+    try {
+      console.log(sources);
+      const mostRecent = Object.values(sources)
+        .map(source => source.events.slice(-1)[0].start)
+        .reduce((a, b) => Math.max(a, b));
+      return mostRecent;
+    } catch (e) {
+      return new Date();
     }
   }
 
@@ -73,7 +91,6 @@
     }
 
     // jump to most recent date
-    console.log(eventSourceCache);
     const mostRecent = getMostRecentDateFromEventSources(eventSourceCache);
 
     let elt = cal;
@@ -109,6 +126,7 @@
     });
     calendar.render();
     window.calendar = calendar;
+    window.eventCache = eventCache;
   });
 </script>
 
