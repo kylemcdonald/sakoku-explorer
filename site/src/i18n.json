@@ -111,7 +111,7 @@
   "ja": {
     "about": {
       "header": "Sakoku Explorer",
-      "description-1": "このアプリはFacebookとGoogleが収集したデータを探るプロセスにご案内します。",
+      "description-1": "このアプリはFacebookとGoogleが収集したあなたのデータを探るプロセスにご案内します。",
       "description-2": "あなたのデータはあなたのコンピュータに存在します。あなたの明白な同意なしに別のマシンへ送信されることはありません。",
       "about-alt": "folder icon"
     },
@@ -119,7 +119,7 @@
       "header": "上の点線ボックス内にあなたのデータをドラッグしてください。",
       "descriptions": [
         "あなたのデータはあなたのコンピュータに存在します。あなたの明白な同意なしに別のマシンへ送信されることはありません。",
-        "Googleの場合は、[こちら](https://takeout.google.com/)から「Google データ エクスポート」へ。「マイ アクティビティ」以外の選択を解除し、「複数の形式」をクリックしJson形式を選択してから、「エクスポートを作成」してください。ダウンロードしたファイルを解凍した後、最上位のフォルダをドラッグしてください。",
+        "Googleの場合は、[こちら](https://takeout.google.com/)から「Google データ エクスポート」へ。「マイ アクティビティ」以外の選択を解除し、「複数の形式」をクリックしJSON形式を選択してから、「エクスポートを作成」してください。ダウンロードしたファイルを解凍した後、最上位のフォルダをドラッグしてください。",
         "Facebookの場合は、[こちら](https://www.facebook.com/dyi)より「個人データをダウンロード」へ。フォーマットはJSON、メディアの画質は「低」を選択。「写真とビデオ」「ストーリーズ」の選択を解除してから「ファイルを作成」してください。ダウンロードしたファイルを解凍した後、最上位のフォルダをドラッグしてください。）"
       ],
       "floppy-alt": "floppy disk icon"
@@ -150,11 +150,11 @@
       "google/ads": "広告",
       "google/maps": "マップ",
       "google/image-search": {
-        "imageViewActivity": "見たことのある画像",
+        "imageViewActivity": "表示した画像",
         "imageSearchActivity": "画像を検索"
       },
       "google/search": {
-        "visitedActivity": "表示したことのあるページ",
+        "visitedActivity": "表示したページ",
         "searchActivity": "検索"
       },
       "google/youtube": {
@@ -185,11 +185,11 @@
       "google/ads": "Google広告",
       "google/maps": "Googleマップ",
       "google/image-search": {
-        "imageViewActivity": "Google見たことのある画像",
-        "imageSearchActivity": "Google画像を検索"
+        "imageViewActivity": "Google表示した画像",
+        "imageSearchActivity": "Google画像検索"
       },
       "google/search": {
-        "visitedActivity": "Google表示したことのあるページ",
+        "visitedActivity": "Google表示したページ",
         "searchActivity": "Google検索"
       },
       "google/youtube": {
