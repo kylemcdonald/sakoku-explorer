@@ -151,7 +151,7 @@
       "google/maps": "マップ",
       "google/image-search": {
         "imageViewActivity": "表示した画像",
-        "imageSearchActivity": "画像を検索"
+        "imageSearchActivity": "画像検索"
       },
       "google/search": {
         "visitedActivity": "表示したページ",
