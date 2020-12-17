@@ -13,10 +13,14 @@
 	<link rel='stylesheet' href='/build/bundle.css'>
 	<style>
 		/*
-		phase 1: both display: none
-		phase 2: both display: default
-		phase 3: /calendar display: default, /games display: none
+		phase 1: all display: none
+		phase 2: all display: default
+		phase 3: overview display: default, /calendar display: default, /games display: none
 		*/
+		a[href="/overview"] {
+			display: default;
+		}
+
 		a[href="/calendar"] {
 			display: default;
 		}

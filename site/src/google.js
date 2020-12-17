@@ -172,14 +172,16 @@ function loadAdsActivityJson(raw, lang) {
 
   return {
     adsActivity: activity.map((e) => {
-      const url = extractUrlFromVisited(e.url);
-      const domain = extractDomain(url);
-      return {
-        title: domain,
-        site: domain,
-        url: url,
-        start: e.start,
-      };
+      if (e.url) {
+        const url = extractUrlFromVisited(e.url);
+        const domain = extractDomain(url);
+        return {
+          title: domain,
+          site: domain,
+          url: url,
+          start: e.start,
+        };
+      }
     }),
   };
 }
