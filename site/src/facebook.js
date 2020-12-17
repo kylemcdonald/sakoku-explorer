@@ -14,7 +14,16 @@ const utf8 = require("utf8");
 // }
 
 function fixFacebookEncoding(data) {
-  return utf8.decode(data);
+  if (data !== undefined) {
+    try {
+      return utf8.decode(data);
+    } catch (e) {
+      console.error(e);
+      return data;
+    }
+  } else {
+    return "";
+  }
 }
 
 function loadOffFacebookActivity(raw) {
@@ -23,9 +32,9 @@ function loadOffFacebookActivity(raw) {
   // console.log(data['off_facebook_activity'][0]);
   // const fbids = new Set();
   // let groups = {};
-  data["off_facebook_activity"].forEach((e) => {
-    let name = fixFacebookEncoding(e["name"]);
-    e["events"].forEach((e) => {
+  data.off_facebook_activity.forEach((e) => {
+    let name = fixFacebookEncoding(e.name);
+    e.events.forEach((e) => {
       let title = name;
       const type = e.type;
       if (type != "CUSTOM") {
