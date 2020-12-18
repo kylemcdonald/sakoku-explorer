@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import { Calendar } from "@fullcalendar/core";
   import jaLocale from "@fullcalendar/core/locales/ja";
   import dayGridPlugin from "@fullcalendar/daygrid";
@@ -11,7 +11,9 @@
   import { locale, _ } from "../i18n";
   import { getColor } from "../color";
 
-  let cal;
+  let calendar;
+  let calendarElt;
+  let legendElt;
   let eventSourceCache = {};
 
   function eventComparator(a, b) {
@@ -66,7 +68,14 @@
     }
   }
 
-  let calendar;
+  function calendarHeight() {
+    return legendElt.offsetTop - calendarElt.offsetTop;
+  }
+
+  function handleResize() {
+    calendar.setHeight(calendarHeight());
+  }
+
   $: calendar !== undefined && calendar.setOption("locale", $locale);
   onMount(async () => {
     for (const [loader, eventCollection] of Object.entries(eventCache)) {
@@ -76,13 +85,12 @@
     // jump to most recent date
     const mostRecent = getMostRecentDateFromEventSources(eventSourceCache);
 
-    let elt = cal;
-    calendar = new Calendar(elt, {
+    calendar = new Calendar(calendarElt, {
       plugins: [dayGridPlugin, timeGridPlugin],
       locales: [jaLocale],
       locale: $locale,
       eventSources: Object.values(eventSourceCache),
-      aspectRatio: 2,
+      height: calendarHeight(),
       eventDidMount: (info) => {
         tippy(info.el, {
           content: info.event.title,
@@ -112,6 +120,9 @@
     calendar.render();
     window.calendar = calendar;
     window.eventCache = eventCache;
+
+    await tick();
+    handleResize();
   });
 
   function toggleEventSource(elt, eventSourceId) {
@@ -156,9 +167,11 @@
   }
 </style>
 
+<svelte:window on:resize={handleResize} />
+
 <h1 class="sr-only">Calendar</h1>
-<div bind:this={cal} id="sakocal" />
-<legend>
+<div bind:this={calendarElt} id="sakocal" />
+<legend bind:this={legendElt}>
   <button
     on:click={toggleText}
     style="background-color:white;color:black">{$_('calendar.toggle-text')}</button>
