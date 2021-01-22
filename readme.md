@@ -3,15 +3,9 @@
 Exploring data downloads from Facebook and Twitter.
 
 ```
-cd app
+cd site
 npm install
 npm start
-```
-
-To build:
-
-```
-npm run-script build-mac
 ```
 
 ## appengine

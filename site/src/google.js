@@ -8,20 +8,24 @@ function parseDatetime(datetime) {
 
 // this is not a simple task, but we need something fast
 function extractDomain(url) {
-  const hostname = url.match("^(?:https?://)?(?<hostname>[^:/\n?%]+)", "i");
-  const parts = hostname.groups.hostname.split(".");
-  const domain = parts.slice(-2).join(".");
-  if (
-    parts.length > 2 &&
-    (domain.startsWith("co.") ||
-      domain.startsWith("com.") ||
-      domain.startsWith("edu.") ||
-      domain.startsWith("org.") ||
-      ["ne.jp", "or.jp", "go.jp"].includes(domain))
-  ) {
-    return parts.slice(-3).join(".");
+  try {
+    const hostname = url.match("^(?:https?://)?(?<hostname>[^:/\n?%]+)", "i");
+    const parts = hostname.groups.hostname.split(".");
+    const domain = parts.slice(-2).join(".");
+    if (
+      parts.length > 2 &&
+      (domain.startsWith("co.") ||
+        domain.startsWith("com.") ||
+        domain.startsWith("edu.") ||
+        domain.startsWith("org.") ||
+        ["ne.jp", "or.jp", "go.jp"].includes(domain))
+    ) {
+      return parts.slice(-3).join(".");
+    }
+    return domain;
+  } catch (err) {
+    return;
   }
-  return domain;
 }
 
 const datetimeRe = />([^<]+)$/;
@@ -56,9 +60,13 @@ function extractSearchFunc(lang) {
 const visitedUrlPrefixRe = /^.+url\?q=/;
 const visitedUrlPostfixRe = /&usg=.+$/;
 function extractUrlFromVisited(url) {
-  url = url.replace(visitedUrlPrefixRe, "");
-  url = url.replace(visitedUrlPostfixRe, "");
-  return url;
+  try {
+    url = url.replace(visitedUrlPrefixRe, "");
+    url = url.replace(visitedUrlPostfixRe, "");
+    return url;
+  } catch (err) {
+    return;
+  }
 }
 
 function loadSearchActivityJson(raw, lang) {
@@ -169,10 +177,8 @@ function loadImageSearchActivityJson(raw, lang) {
 
 function loadAdsActivityJson(raw, lang) {
   const activity = loadActivityJson(raw); //.filter((e) => e.links.length);
-
   return {
     adsActivity: activity.map((e) => {
-      if (e.url) {
         const url = extractUrlFromVisited(e.url);
         const domain = extractDomain(url);
         return {
@@ -181,8 +187,7 @@ function loadAdsActivityJson(raw, lang) {
           url: url,
           start: e.start,
         };
-      }
-    }),
+      })
   };
 }
 
@@ -191,13 +196,6 @@ function loadMapsActivityJson(raw, lang) {
 
   return {
     mapsActivity: activity.map((e) => {
-      // "Used maps" with no other info
-      // if (e.links.length == 0) {
-      //   return {
-      //     title: "Maps",
-      //     start: e.start,
-      //   };
-      // }
       return {
         title: e.title,
         url: e.url,
