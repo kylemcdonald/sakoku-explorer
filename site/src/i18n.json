@@ -104,6 +104,7 @@
       "nickname": "Nickname"
     },
     "admin": {
+      "key": "Password",
       "update": "Update",
       "no-results": "No results"
     }
@@ -213,6 +214,7 @@
       "nickname": "ニックネーム"
     },
     "admin": {
+      "key": "パスワード",
       "update": "アップデート",
       "no-results": "結果がありません"
     }
