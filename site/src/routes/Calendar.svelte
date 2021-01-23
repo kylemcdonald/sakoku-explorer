@@ -14,7 +14,10 @@
   let calendar;
   let calendarElt;
   let legendElt;
+  let textVisible = true;
   let eventSourceCache = {};
+
+  let activeTooltips = new Set();
 
   function eventComparator(a, b) {
     return a.start < b.start ? -1 : +1;
@@ -92,10 +95,21 @@
       eventSources: Object.values(eventSourceCache),
       height: calendarHeight(),
       eventDidMount: (info) => {
-        tippy(info.el, {
+        let tooltip = tippy(info.el, {
           content: info.event.title,
           duration: 0,
         });
+        activeTooltips.add(tooltip);
+        info.el.tooltip = tooltip;
+        if (!textVisible) {
+          let titleElt = info.el.getElementsByClassName("fc-event-title")[0];
+          setEltVisibility(titleElt, false);
+          setTooltipVisibility(tooltip, false);
+        }
+      },
+      eventWillUnmount: (info) => {
+        activeTooltips.delete(info.el.tooltip);
+        info.el.tooltip.destroy();
       },
       eventClick: (info) => {
         info.jsEvent.preventDefault();
@@ -136,12 +150,46 @@
     }
   }
 
+  function setEltVisibility(elt, display) {
+    elt.style.display = display ? "" : "none";
+  }
+
+  function setTooltipVisibility(tooltip, display) {
+    if (display) {
+      tooltip.enable();
+    } else {
+      tooltip.disable();
+    }
+  }
+
   function toggleText() {
+    if (textVisible) {
+      textVisible = false;
+    } else {
+      textVisible = true;
+    }
     [...document.getElementsByClassName("fc-event-title")].forEach((e) => {
-      e.style.display = e.style.display == "none" ? "" : "none";
+      setEltVisibility(e, textVisible);
     });
+    activeTooltips.forEach((e) => setTooltipVisibility(e, textVisible));
   }
 </script>
+
+<svelte:window on:resize={handleResize} />
+
+<h1 class="sr-only">Calendar</h1>
+<div bind:this={calendarElt} id="sakocal" />
+<legend bind:this={legendElt}>
+  <button on:click={toggleText} style="background-color:white;color:black"
+    >{$_("calendar.toggle-text")}</button
+  >
+  {#each Object.keys(eventSourceCache) as word}
+    <button
+      on:click={toggleEventSource(this, word)}
+      style="background-color:{getColor(word)}">{$_("calendar." + word)}</button
+    >
+  {/each}
+</legend>
 
 <style>
   /* hide the time in calendar events */
@@ -166,18 +214,3 @@
     box-shadow: 0px 0px 20px 2px rgba(0, 0, 0, 0.2);
   }
 </style>
-
-<svelte:window on:resize={handleResize} />
-
-<h1 class="sr-only">Calendar</h1>
-<div bind:this={calendarElt} id="sakocal" />
-<legend bind:this={legendElt}>
-  <button
-    on:click={toggleText}
-    style="background-color:white;color:black">{$_('calendar.toggle-text')}</button>
-  {#each Object.keys(eventSourceCache) as word}
-    <button
-      on:click={toggleEventSource(this, word)}
-      style="background-color:{getColor(word)}">{$_('calendar.' + word)}</button>
-  {/each}
-</legend>
