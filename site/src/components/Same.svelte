@@ -18,7 +18,8 @@
   };
 
   function removeLongestItems(list, maxLength) {
-    const lengths = list.map((e) => e.length);
+    const valid = list.filter((e) => e);
+    const lengths = valid.map((e) => e.length);
     lengths.sort();
     let sum = 0;
     let threshold = lengths[lengths.length - 1];
@@ -29,7 +30,7 @@
         break;
       }
     }
-    return list.filter((e) => e.length <= threshold);
+    return valid.filter((e) => e.length <= threshold);
   }
 
   function prepareSameData() {
@@ -71,6 +72,23 @@
   });
 </script>
 
+<div class="center-block">
+  <h1>{$_("games.same-" + type + "-header")}</h1>
+  <textarea bind:value={preparedData} />
+  <button
+    class="data-button"
+    disabled={nickname === ""}
+    on:click={prepareSameData}>{$_("games.prepare-data")}</button
+  >
+  <button class="data-button" disabled={nickname === ""} on:click={shareData}
+    >{$_("games.share-data")}</button
+  >
+  <p>
+    <span class="emphasis"> {$_("games.same-" + type + "-question")} </span>
+    {$_("games.same-" + type + "-description")}
+  </p>
+</div>
+
 <style>
   .emphasis {
     text-transform: uppercase;
@@ -98,25 +116,8 @@
   p {
     margin-top: 2em;
   }
-  
+
   .center-block {
     margin-top: 2em;
   }
 </style>
-
-<div class="center-block">
-  <h1>{$_('games.same-' + type + '-header')}</h1>
-  <textarea bind:value={preparedData} />
-  <button
-    class="data-button"
-    disabled={nickname === ''}
-    on:click={prepareSameData}>{$_('games.prepare-data')}</button>
-  <button
-    class="data-button"
-    disabled={nickname === ''}
-    on:click={shareData}>{$_('games.share-data')}</button>
-  <p>
-    <span class="emphasis"> {$_('games.same-' + type + '-question')} </span>
-    {$_('games.same-' + type + '-description')}
-  </p>
-</div>
