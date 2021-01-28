@@ -4,7 +4,8 @@
       "header": "Sakoku Explorer",
       "description-1": "This app will guide you through the process of exploring the data collected by Facebook and Google.",
       "description-2": "All of your data stays on your computer. None of your data is sent to another computer without your explicit consent.",
-      "about-alt": "folder icon"
+      "about-alt": "folder icon",
+      "disclaimer": "The web service \"Sakoku Explorer\" (open to the public) does not send any information including the user's personal information to any other computer or server, but processes it all on the user's own computer. However, there is a risk of life, body, mental or property damage to the user or a third party based on the user's own actions such as screen sharing and shoulder hacking by the user. In the unlikely event that these damages occur, the user shall resolve them at his / her own risk and expense, and YCAM shall not be liable for any damages. However, this is not the case if YCAM has intentional or gross negligence regarding the occurrence of the damage."
     },
     "drop": {
       "header": "Please drop your data within the dotted box drawn above.",
@@ -114,7 +115,8 @@
       "header": "Sakoku Explorer",
       "description-1": "このアプリはFacebookとGoogleが収集したあなたのデータを探るプロセスにご案内します。",
       "description-2": "あなたのデータはあなたのコンピュータに存在します。あなたの明白な同意なしに別のマシンへ送信されることはありません。",
-      "about-alt": "folder icon"
+      "about-alt": "folder icon",
+      "disclaimer": "Webサービス「鎖国エクスプローラ」（一般公開版）は、ユーザーの個人情報を含む一切の情報を他のいかなるコンピューターまたはサーバー等に送信はせず、すべてユーザー自身のコンピュターにおいて処理しています。ただし、ユーザー自身による画面共有やショルダーハック等のユーザー自身の行為に基づきユーザーまたは第三者に生命、身体、精神または財産上の損害が発生するおそれはあります。万一これらの損害が発生した場合でもユーザーは自らの責任と負担によりこれを解決するものとし、YCAMはその損害を賠償する責任を一切負いません。ただし、YCAMにその損害の発生について故意または重過失が存在する場合はこのかぎりではありません。"
     },
     "drop": {
       "header": "上の点線ボックス内にあなたのデータをドラッグしてください。",
