@@ -102,7 +102,7 @@
       "prepare-data": "Prepare Data",
       "share-data": "Share Data",
       "group": "Group",
-      "nickname": "Nickname"
+      "nickname": "Codename"
     },
     "admin": {
       "key": "Password",
@@ -213,7 +213,7 @@
       "prepare-data": "データを準備",
       "share-data": "データをシェア",
       "group": "グループ",
-      "nickname": "ニックネーム"
+      "nickname": "コードネーム"
     },
     "admin": {
       "key": "パスワード",
