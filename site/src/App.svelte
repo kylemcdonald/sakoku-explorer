@@ -5,7 +5,6 @@
   import Drop from "./routes/Drop.svelte";
   import Overview from "./routes/Overview.svelte";
   import Calendar from "./routes/Calendar.svelte";
-  import Games from "./routes/Games.svelte";
   import Admin from "./routes/Admin.svelte";
 
   import { _, locale } from "./i18n.js";
@@ -39,9 +38,6 @@
       <li role="listitem">
         <NavLink to="calendar">Calendar</NavLink>
       </li>
-      <li role="listitem">
-        <NavLink to="games">Games</NavLink>
-      </li>
     </ul>
     <lang>
       <button
@@ -64,9 +60,6 @@
     </Route>
     <Route path="calendar">
       <Calendar />
-    </Route>
-    <Route path="games">
-      <Games />
     </Route>
     <Route path="admin">
       <Admin />
