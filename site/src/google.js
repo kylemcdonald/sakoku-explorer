@@ -211,9 +211,15 @@ function wrap(func, lang) {
   };
 }
 
+// both "MyActivity.json" and "My Activity.json" are used in different regions
 module.exports.handlers = [
   {
     path: "/Search/MyActivity.json",
+    name: "search",
+    load: wrap(loadSearchActivityJson, "en"),
+  },
+  {
+    path: "/Search/My Activity.json",
     name: "search",
     load: wrap(loadSearchActivityJson, "en"),
   },
@@ -228,12 +234,22 @@ module.exports.handlers = [
     load: wrap(loadYouTubeActivityJson, "en"),
   },
   {
+    path: "/YouTube/My Activity.json",
+    name: "youtube",
+    load: wrap(loadYouTubeActivityJson, "en"),
+  },
+  {
     path: "/YouTube/マイアクティビティ.json",
     name: "youtube",
     load: wrap(loadYouTubeActivityJson, "ja"),
   },
   {
     path: "/Image Search/MyActivity.json",
+    name: "image-search",
+    load: wrap(loadImageSearchActivityJson, "en"),
+  },
+  {
+    path: "/Image Search/My Activity.json",
     name: "image-search",
     load: wrap(loadImageSearchActivityJson, "en"),
   },
@@ -248,12 +264,22 @@ module.exports.handlers = [
     load: wrap(loadAdsActivityJson, "en"),
   },
   {
+    path: "/Ads/My Activity.json",
+    name: "ads",
+    load: wrap(loadAdsActivityJson, "en"),
+  },
+  {
     path: "/Ads/マイアクティビティ.json",
     name: "ads",
     load: wrap(loadAdsActivityJson, "ja"),
   },
   {
     path: "/Maps/MyActivity.json",
+    name: "maps",
+    load: wrap(loadMapsActivityJson, "en"),
+  },
+  {
+    path: "/Maps/My Activity.json",
     name: "maps",
     load: wrap(loadMapsActivityJson, "en"),
   },

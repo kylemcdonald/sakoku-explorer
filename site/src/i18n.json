@@ -3,14 +3,14 @@
     "about": {
       "header": "Sakoku Explorer",
       "description-1": "This app will guide you through the process of exploring the data collected by Facebook and Google.",
-      "description-2": "All of your data stays on your computer. None of your data is sent to another computer without your explicit consent.",
+      "description-2": "All of your data stays on your computer. None of your data is sent to another computer.",
       "about-alt": "folder icon",
       "disclaimer": "[Disclaimer] The tool \"Sakoku Explorer\" (public version) does not transmit any information, including personal information, to any other computer or server, and all information is processed on the user's own computer.However, there is a possibility that the user or a third party may incur damage to life, body, mind, or property based on the user's own actions such as screen sharing.In the unlikely event that such damage should occur, the User shall resolve it at his/her own responsibility and expense, and YCAM shall not be liable for any compensation for such damage. In no event shall YCAM be liable to compensate for such damages, except in cases where YCAM has been intentionally or grossly negligent in causing such damages."
     },
     "drop": {
       "header": "Please drop your data within the dotted box drawn above.",
       "descriptions": [
-        "All of your data stays on your computer. None of your data is sent to another computer without your explicit consent.",
+        "All of your data stays on your computer. None of your data is sent to another computer.",
         "For Google, go to [Takeout](https://takeout.google.com/). De-select everything except \"My Activity\", and choose the JSON format. Drop the top-level folder here after unzipping.",
         "For Facebook, go to [Download Your Information](https://www.facebook.com/dyi). Choose JSON as the format, choose media quality \"Low\", and de-select \"Photos and Videos\" and \"Stories\". Drop the top-level folder here after unzipping."
       ],
